@@ -1,0 +1,9 @@
+{
+  "name":"Dishari Academy",
+  "short_name":"Dishari Academy",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#ffffff",
+  "theme_color":"#102a43",
+  "icons":[{"src":"assets/favicon.jpg","sizes":"256x256","type":"image/jpeg"}]
+}

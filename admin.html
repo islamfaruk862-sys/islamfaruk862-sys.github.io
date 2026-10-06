@@ -36,7 +36,7 @@ label{display:block;text-align:left;font-weight:700;font-size:13px;margin:12px 0
 <div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL="https://huegvliiwivgdbkfgxq.supabase.co";
-const SUPABASE_KEY="PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
+const SUPABASE_KEY="sb_publishable_MsF91SLIwNDJdpDKfGhEmQ_VnSW2OJb";
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const CFG={
 students:{title:"Students",icon:"🎓",cols:["admission_no","name","class_name","section","gender","dob","guardian_name","phone","address","admission_date","status"],lab:{admission_no:"Admission No.",name:"Student Name",class_name:"Class",section:"Section",gender:"Gender",dob:"DOB",guardian_name:"Guardian",phone:"Phone",address:"Address",admission_date:"Admission Date",status:"Status"},types:{dob:"date",admission_date:"date"},sel:{gender:["Male","Female","Other"],status:["Active","Inactive"]},search:["name","admission_no","guardian_name","phone"]},

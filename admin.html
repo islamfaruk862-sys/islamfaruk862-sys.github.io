@@ -1,7 +1,1905 @@
-<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dishari Academy | Admin Dashboard</title><link rel="stylesheet" href="admin.css"></head>
-<body><aside><div class="logo"><img src="assets/logo.jpg"><b>দিশারী একাডেমী</b></div><a class="active">Dashboard</a><a>Students</a><a>Teachers</a><a>Attendance</a><a>Fees</a><a>Exams & Results</a><a>Admissions</a><a>Notices</a><a>Gallery</a><a>Reports</a><a>Settings</a><a href="index.html">← Website</a></aside>
-<main><header><div><small>ADMIN PANEL</small><h1>School Management Dashboard</h1></div><button onclick="alert('এটি একটি front-end demo dashboard। বাস্তব login/database-এর জন্য backend সংযোগ প্রয়োজন।')">Admin Profile</button></header>
-<div class="notice">⚠️ <b>Demo Management Panel:</b> এই dashboard-এর UI প্রস্তুত। GitHub Pages-এ secure real database/login নেই। Supabase/Firebase-এর মতো backend যুক্ত করলে এটিকে পূর্ণ management system করা যাবে।</div>
-<section class="stats"><div><b>248</b><span>Students</span></div><div><b>24</b><span>Teachers</span></div><div><b>91%</b><span>Attendance</span></div><div><b>₹1.24L</b><span>Fees this month</span></div></section>
-<section class="grid"><div class="panel"><h2>Recent Admissions</h2><table><tr><th>Student</th><th>Class</th><th>Status</th></tr><tr><td>Demo Student 01</td><td>VI</td><td>Pending</td></tr><tr><td>Demo Student 02</td><td>III</td><td>Approved</td></tr><tr><td>Demo Student 03</td><td>IX</td><td>Review</td></tr></table></div><div class="panel"><h2>Quick Actions</h2><button>Add Student</button><button>Add Teacher</button><button>New Notice</button><button>Upload Gallery Photo</button><button>Record Fee</button></div></section>
-</main></body></html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dishari Academy | Management System</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --primary:#2563eb;
+ --primary2:#1d4ed8;
+ --dark:#0f172a;
+ --dark2:#1e293b;
+ --bg:#f1f5f9;
+ --white:#fff;
+ --text:#0f172a;
+ --muted:#64748b;
+ --border:#e2e8f0;
+ --green:#16a34a;
+ --red:#dc2626;
+ --orange:#ea580c;
+ --purple:#7c3aed;
+}
+body{
+ font-family:Arial,"Noto Sans Bengali",sans-serif;
+ background:var(--bg);
+ color:var(--text);
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+/* LOGIN */
+.login-page{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:linear-gradient(135deg,#0f172a,#1d4ed8);
+}
+.login-card{
+ width:100%;
+ max-width:430px;
+ background:white;
+ border-radius:22px;
+ padding:30px;
+ box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+.login-logo{
+ width:90px;
+ height:90px;
+ object-fit:contain;
+ display:block;
+ margin:0 auto 12px;
+}
+.login-card h1{text-align:center;font-size:25px}
+.login-card .sub{text-align:center;color:#64748b;margin:7px 0 25px}
+.form-group{margin-bottom:14px}
+.form-group label{
+ display:block;
+ font-size:14px;
+ font-weight:700;
+ margin-bottom:6px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+ width:100%;
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:12px;
+ outline:none;
+ background:#fff;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+ border-color:var(--primary);
+ box-shadow:0 0 0 3px rgba(37,99,235,.1);
+}
+.btn{
+ border:0;
+ border-radius:9px;
+ padding:10px 15px;
+ font-weight:700;
+}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary2)}
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-gray{background:#e2e8f0;color:#0f172a}
+.btn-orange{background:var(--orange);color:#fff}
+.full{width:100%}
+
+/* APP */
+.app{min-height:100vh;display:flex}
+.sidebar{
+ width:260px;
+ background:var(--dark);
+ color:white;
+ position:fixed;
+ top:0;left:0;bottom:0;
+ overflow-y:auto;
+ z-index:1000;
+}
+.brand{
+ padding:20px;
+ border-bottom:1px solid rgba(255,255,255,.1);
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+.brand img{
+ width:48px;height:48px;
+ border-radius:50%;
+ background:white;
+ object-fit:contain;
+}
+.brand strong{font-size:16px}
+.brand small{display:block;color:#94a3b8;margin-top:3px}
+.nav{padding:12px}
+.nav button{
+ width:100%;
+ text-align:left;
+ border:0;
+ background:transparent;
+ color:#cbd5e1;
+ padding:12px;
+ border-radius:9px;
+ margin:2px 0;
+ font-weight:600;
+}
+.nav button:hover,.nav button.active{
+ background:#1e40af;
+ color:white;
+}
+.main{
+ margin-left:260px;
+ width:calc(100% - 260px);
+ min-height:100vh;
+}
+.topbar{
+ height:68px;
+ background:white;
+ border-bottom:1px solid var(--border);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 22px;
+ position:sticky;
+ top:0;
+ z-index:900;
+}
+.menu-btn{
+ display:none;
+ border:0;
+ background:#e2e8f0;
+ padding:9px 12px;
+ border-radius:8px;
+}
+.user-info{
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+.avatar{
+ width:40px;height:40px;
+ background:#dbeafe;
+ color:#1d4ed8;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:800;
+}
+.content{padding:22px}
+
+/* DASHBOARD */
+.page-title{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ margin-bottom:20px;
+}
+.page-title h2{font-size:24px}
+.page-title p{color:var(--muted);font-size:14px;margin-top:4px}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px;
+ margin-bottom:20px;
+}
+.stat{
+ background:white;
+ border:1px solid var(--border);
+ border-radius:15px;
+ padding:18px;
+}
+.stat .icon{font-size:27px}
+.stat .label{color:var(--muted);font-size:13px;margin-top:9px}
+.stat .num{font-size:27px;font-weight:800;margin-top:4px}
+.dashboard-grid{
+ display:grid;
+ grid-template-columns:2fr 1fr;
+ gap:18px;
+}
+.card{
+ background:white;
+ border:1px solid var(--border);
+ border-radius:15px;
+ padding:18px;
+ margin-bottom:18px;
+}
+.card h3{margin-bottom:14px}
+.quick{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+}
+.quick button{
+ padding:15px 8px;
+ border:1px solid var(--border);
+ background:#f8fafc;
+ border-radius:10px;
+}
+.quick button:hover{background:#eff6ff;border-color:#93c5fd}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{
+ width:100%;
+ border-collapse:collapse;
+ min-width:700px;
+}
+th,td{
+ padding:11px 10px;
+ border-bottom:1px solid var(--border);
+ text-align:left;
+ font-size:13px;
+}
+th{background:#f8fafc;font-weight:800}
+.badge{
+ display:inline-block;
+ padding:4px 8px;
+ border-radius:20px;
+ background:#dbeafe;
+ color:#1d4ed8;
+ font-size:11px;
+ font-weight:700;
+}
+.actions{display:flex;gap:5px;flex-wrap:wrap}
+.actions button{padding:6px 9px;font-size:11px}
+
+/* TOOLBAR */
+.toolbar{
+ display:flex;
+ gap:9px;
+ flex-wrap:wrap;
+ margin-bottom:15px;
+}
+.toolbar input,.toolbar select{
+ border:1px solid var(--border);
+ padding:10px;
+ border-radius:9px;
+ background:white;
+}
+
+/* MODAL */
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(15,23,42,.6);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:15px;
+ z-index:2000;
+}
+.modal.show{display:flex}
+.modal-box{
+ width:100%;
+ max-width:650px;
+ max-height:92vh;
+ overflow:auto;
+ background:white;
+ border-radius:17px;
+ padding:20px;
+}
+.modal-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:15px;
+}
+.close{
+ border:0;
+ background:#fee2e2;
+ color:#b91c1c;
+ width:35px;height:35px;
+ border-radius:50%;
+ font-size:18px;
+}
+.form-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+.form-grid .full-col{grid-column:1/-1}
+
+/* ALERT */
+.alert{
+ padding:12px 14px;
+ border-radius:10px;
+ margin-bottom:15px;
+ font-size:13px;
+ display:none;
+}
+.alert.show{display:block}
+.alert.error{background:#fee2e2;color:#991b1b}
+.alert.success{background:#dcfce7;color:#166534}
+
+/* LOADING */
+.loading{
+ position:fixed;
+ inset:0;
+ background:rgba(255,255,255,.75);
+ z-index:3000;
+ display:none;
+ align-items:center;
+ justify-content:center;
+}
+.loading.show{display:flex}
+.spinner{
+ width:45px;height:45px;
+ border:5px solid #dbeafe;
+ border-top-color:#2563eb;
+ border-radius:50%;
+ animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+ .sidebar{transform:translateX(-100%);transition:.25s}
+ .sidebar.open{transform:translateX(0)}
+ .main{margin-left:0;width:100%}
+ .menu-btn{display:block}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .dashboard-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+ .content{padding:13px}
+ .topbar{padding:0 12px}
+ .stats{grid-template-columns:1fr 1fr;gap:9px}
+ .stat{padding:13px}
+ .stat .num{font-size:22px}
+ .quick{grid-template-columns:1fr 1fr}
+ .form-grid{grid-template-columns:1fr}
+ .form-grid .full-col{grid-column:auto}
+ .page-title h2{font-size:20px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div class="loading" id="loading">
+ <div class="spinner"></div>
+</div>
+
+<!-- LOGIN -->
+<section class="login-page" id="loginPage">
+ <div class="login-card">
+
+  <img src="logo.jpg" class="login-logo"
+       onerror="this.style.display='none'">
+
+  <h1>দিশারী একাডেমী</h1>
+  <div class="sub">School Management System</div>
+
+  <div class="alert" id="loginAlert"></div>
+
+  <div class="form-group">
+   <label>Admin Email</label>
+   <input type="email" id="loginEmail"
+          placeholder="admin@example.com">
+  </div>
+
+  <div class="form-group">
+   <label>Password</label>
+   <input type="password" id="loginPassword"
+          placeholder="Password">
+  </div>
+
+  <button class="btn btn-primary full"
+          onclick="login()">
+    🔐 Login to Dashboard
+  </button>
+
+  <p style="font-size:12px;color:#64748b;text-align:center;margin-top:15px">
+   Authorized school staff only
+  </p>
+
+ </div>
+</section>
+
+<!-- APP -->
+<div class="app hidden" id="app">
+
+ <!-- SIDEBAR -->
+ <aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+   <img src="logo.jpg" onerror="this.style.display='none'">
+   <div>
+    <strong>Dishari Academy</strong>
+    <small>Management System</small>
+   </div>
+  </div>
+
+  <nav class="nav">
+
+   <button class="active" onclick="showPage('dashboard',this)">
+    🏠 Dashboard
+   </button>
+
+   <button onclick="showPage('students',this)">
+    👨‍🎓 Students
+   </button>
+
+   <button onclick="showPage('teachers',this)">
+    👨‍🏫 Teachers
+   </button>
+
+   <button onclick="showPage('attendance',this)">
+    📅 Attendance
+   </button>
+
+   <button onclick="showPage('fees',this)">
+    💰 Fees
+   </button>
+
+   <button onclick="showPage('exams',this)">
+    📝 Exams
+   </button>
+
+   <button onclick="showPage('results',this)">
+    🏆 Results
+   </button>
+
+   <button onclick="showPage('admissions',this)">
+    📥 Admissions
+   </button>
+
+   <button onclick="showPage('notices',this)">
+    📢 Notices
+   </button>
+
+   <button onclick="showPage('gallery',this)">
+    🖼️ Gallery
+   </button>
+
+   <button onclick="showPage('salary',this)">
+    💳 Teacher Salary
+   </button>
+
+   <button onclick="showPage('reports',this)">
+    📊 Reports
+   </button>
+
+   <button onclick="showPage('settings',this)">
+    ⚙️ Settings
+   </button>
+
+   <button onclick="logout()" style="margin-top:15px;color:#fca5a5">
+    🚪 Logout
+   </button>
+
+  </nav>
+ </aside>
+
+ <!-- MAIN -->
+ <main class="main">
+
+  <header class="topbar">
+
+   <button class="menu-btn" onclick="toggleSidebar()">
+    ☰
+   </button>
+
+   <div>
+    <strong id="topTitle">Dashboard</strong>
+   </div>
+
+   <div class="user-info">
+    <div>
+     <strong id="userName">Admin</strong>
+     <div style="font-size:11px;color:#64748b"
+          id="userRole">admin</div>
+    </div>
+    <div class="avatar" id="avatar">A</div>
+   </div>
+
+  </header>
+
+  <div class="content">
+
+   <div class="alert" id="appAlert"></div>
+
+   <!-- DASHBOARD -->
+   <section id="page-dashboard">
+
+    <div class="page-title">
+     <div>
+      <h2>Dashboard</h2>
+      <p>দিশারী একাডেমী — School Management System</p>
+     </div>
+     <button class="btn btn-primary"
+             onclick="refreshDashboard()">
+      🔄 Refresh
+     </button>
+    </div>
+
+    <div class="stats">
+
+     <div class="stat">
+      <div class="icon">👨‍🎓</div>
+      <div class="label">Total Students</div>
+      <div class="num" id="statStudents">0</div>
+     </div>
+
+     <div class="stat">
+      <div class="icon">👨‍🏫</div>
+      <div class="label">Total Teachers</div>
+      <div class="num" id="statTeachers">0</div>
+     </div>
+
+     <div class="stat">
+      <div class="icon">📥</div>
+      <div class="label">Admissions</div>
+      <div class="num" id="statAdmissions">0</div>
+     </div>
+
+     <div class="stat">
+      <div class="icon">💰</div>
+      <div class="label">Fee Records</div>
+      <div class="num" id="statFees">0</div>
+     </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+     <div class="card">
+      <h3>⚡ Quick Actions</h3>
+
+      <div class="quick">
+
+       <button onclick="openAdd('students')">
+        ➕ Add Student
+       </button>
+
+       <button onclick="openAdd('teachers')">
+        ➕ Add Teacher
+       </button>
+
+       <button onclick="openAdd('fees')">
+        💰 Add Fee
+       </button>
+
+       <button onclick="openAdd('attendance')">
+        📅 Attendance
+       </button>
+
+       <button onclick="openAdd('exams')">
+        📝 Add Exam
+       </button>
+
+       <button onclick="openAdd('notices')">
+        📢 Add Notice
+       </button>
+
+      </div>
+     </div>
+
+     <div class="card">
+      <h3>🏫 School Information</h3>
+
+      <p><b>দিশারী একাডেমী</b></p>
+      <p style="margin-top:7px;color:#64748b">
+       Gurail Hatkhola, Tapan
+      </p>
+      <p style="color:#64748b">
+       Dakshin Dinajpur, West Bengal
+      </p>
+      <p style="margin-top:10px">
+       Established: <b>2020</b>
+      </p>
+     </div>
+
+    </div>
+
+    <div class="card">
+     <h3>🕐 Recent Admissions</h3>
+     <div class="table-wrap">
+      <table>
+       <thead>
+        <tr>
+         <th>Name</th>
+         <th>Class</th>
+         <th>Guardian</th>
+         <th>Phone</th>
+         <th>Status</th>
+        </tr>
+       </thead>
+       <tbody id="recentAdmissions">
+        <tr>
+         <td colspan="5">Loading...</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+
+   </section>
+
+   <!-- GENERIC PAGE -->
+   <section id="page-data" class="hidden">
+
+    <div class="page-title">
+     <div>
+      <h2 id="dataTitle">Students</h2>
+      <p id="dataDescription">Manage records</p>
+     </div>
+
+     <button class="btn btn-primary"
+             id="addButton"
+             onclick="openAdd(currentTable)">
+      ➕ Add
+     </button>
+    </div>
+
+    <div class="card">
+
+     <div class="toolbar">
+      <input id="searchBox"
+             placeholder="🔍 Search..."
+             oninput="filterTable()">
+
+      <button class="btn btn-gray"
+              onclick="loadTable(currentTable)">
+       🔄 Refresh
+      </button>
+
+      <button class="btn btn-green"
+              onclick="exportCSV()">
+       📥 Export CSV
+      </button>
+     </div>
+
+     <div class="table-wrap">
+      <table id="dataTable">
+       <thead></thead>
+       <tbody></tbody>
+      </table>
+     </div>
+
+    </div>
+
+   </section>
+
+   <!-- REPORTS -->
+   <section id="page-reports" class="hidden">
+
+    <div class="page-title">
+     <div>
+      <h2>📊 Reports</h2>
+      <p>Export school management data</p>
+     </div>
+    </div>
+
+    <div class="card">
+
+     <h3>Database Reports</h3>
+
+     <div class="quick">
+
+      <button onclick="downloadReport('students')">
+       👨‍🎓 Students CSV
+      </button>
+
+      <button onclick="downloadReport('teachers')">
+       👨‍🏫 Teachers CSV
+      </button>
+
+      <button onclick="downloadReport('fees')">
+       💰 Fees CSV
+      </button>
+
+      <button onclick="downloadReport('attendance')">
+       📅 Attendance CSV
+      </button>
+
+      <button onclick="downloadReport('results')">
+       🏆 Results CSV
+      </button>
+
+      <button onclick="downloadReport('admissions')">
+       📥 Admissions CSV
+      </button>
+
+      <button onclick="downloadReport('salary_payments')">
+       💳 Salary CSV
+      </button>
+
+     </div>
+
+    </div>
+
+   </section>
+
+   <!-- SETTINGS -->
+   <section id="page-settings" class="hidden">
+
+    <div class="page-title">
+     <div>
+      <h2>⚙️ Settings</h2>
+      <p>Current account information</p>
+     </div>
+    </div>
+
+    <div class="card">
+
+     <h3>Account</h3>
+
+     <p><b>Email:</b>
+       <span id="settingsEmail"></span>
+     </p>
+
+     <p style="margin-top:10px">
+       <b>Name:</b>
+       <span id="settingsName"></span>
+     </p>
+
+     <p style="margin-top:10px">
+       <b>Role:</b>
+       <span class="badge" id="settingsRole"></span>
+     </p>
+
+     <hr style="margin:20px 0;border:0;border-top:1px solid #e2e8f0">
+
+     <button class="btn btn-red"
+             onclick="logout()">
+      🚪 Logout
+     </button>
+
+    </div>
+
+   </section>
+
+  </div>
+ </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="recordModal">
+
+ <div class="modal-box">
+
+  <div class="modal-head">
+   <h3 id="modalTitle">Add Record</h3>
+
+   <button class="close"
+           onclick="closeModal()">×</button>
+  </div>
+
+  <form id="recordForm"
+        onsubmit="saveRecord(event)">
+
+   <div class="form-grid"
+        id="formFields">
+   </div>
+
+   <div style="display:flex;gap:8px;margin-top:18px">
+    <button type="button"
+            class="btn btn-gray"
+            onclick="closeModal()">
+     Cancel
+    </button>
+
+    <button type="submit"
+            class="btn btn-primary"
+            id="saveBtn">
+     💾 Save
+    </button>
+   </div>
+
+  </form>
+
+ </div>
+</div>
+
+<script>
+
+/* =========================================================
+   DISHARI ACADEMY SUPABASE CONFIG
+   ========================================================= */
+
+const SUPABASE_URL =
+ "https://huegvliiwivgdbkfgxq.supabase.co";
+
+/*
+ IMPORTANT:
+ Paste your FULL sb_publishable_... key here.
+ NEVER paste sb_secret_... or service_role here.
+*/
+const SUPABASE_KEY =
+ "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
+
+const supabaseClient =
+ window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY,
+  {
+   auth:{
+    persistSession:true,
+    autoRefreshToken:true,
+    detectSessionInUrl:true
+   }
+  }
+);
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let currentTable = "students";
+let currentRows = [];
+let editingId = null;
+let currentProfile = null;
+
+
+/* =========================================================
+   TABLE CONFIGURATION
+   ========================================================= */
+
+const configs = {
+
+ students:{
+  title:"Students",
+  bn:"ছাত্র-ছাত্রী",
+  description:"Manage student information",
+  fields:[
+   ["admission_no","Admission No","text"],
+   ["name","Student Name","text",true],
+   ["class_name","Class","text",true],
+   ["section","Section","text"],
+   ["gender","Gender","select",["Male","Female","Other"]],
+   ["dob","Date of Birth","date"],
+   ["guardian_name","Guardian Name","text"],
+   ["phone","Guardian Phone","text"],
+   ["address","Address","textarea"],
+   ["admission_date","Admission Date","date"],
+   ["status","Status","select",["Active","Inactive","Passed","Left"]]
+  ]
+ },
+
+ teachers:{
+  title:"Teachers",
+  bn:"শিক্ষক",
+  description:"Manage teacher information",
+  fields:[
+   ["employee_id","Employee ID","text"],
+   ["name","Teacher Name","text",true],
+   ["subject","Subject","text"],
+   ["phone","Phone","text"],
+   ["email","Email","email"],
+   ["joining_date","Joining Date","date"],
+   ["salary","Monthly Salary","number"],
+   ["status","Status","select",["Active","Inactive"]]
+  ]
+ },
+
+ attendance:{
+  title:"Attendance",
+  bn:"উপস্থিতি",
+  description:"Manage student attendance",
+  fields:[
+   ["student_id","Student ID","text",true],
+   ["attendance_date","Date","date",true],
+   ["status","Status","select",["Present","Absent","Late","Leave"],true],
+   ["remarks","Remarks","textarea"]
+  ]
+ },
+
+ fees:{
+  title:"Fees",
+  bn:"ফি",
+  description:"Manage student fee payments",
+  fields:[
+   ["student_id","Student ID","text",true],
+   ["fee_month","Fee Month","text",true],
+   ["amount","Total Amount","number"],
+   ["paid_amount","Paid Amount","number",true],
+   ["payment_date","Payment Date","date"],
+   ["payment_method","Payment Method","select",["Cash","UPI","Bank","Other"]],
+   ["status","Status","select",["Paid","Partial","Due"]],
+   ["receipt_no","Receipt No","text"]
+  ]
+ },
+
+ exams:{
+  title:"Exams",
+  bn:"পরীক্ষা",
+  description:"Manage examinations",
+  fields:[
+   ["exam_name","Exam Name","text",true],
+   ["class_name","Class","text",true],
+   ["exam_date","Exam Date","date"],
+   ["description","Description","textarea"]
+  ]
+ },
+
+ results:{
+  title:"Results",
+  bn:"ফলাফল",
+  description:"Manage examination results",
+  fields:[
+   ["student_id","Student ID","text",true],
+   ["exam_id","Exam ID","text",true],
+   ["subject","Subject","text",true],
+   ["marks","Marks","number",true],
+   ["total_marks","Total Marks","number"],
+   ["grade","Grade","text"],
+   ["remarks","Remarks","textarea"]
+  ]
+ },
+
+ admissions:{
+  title:"Admissions",
+  bn:"ভর্তি",
+  description:"Manage admission applications",
+  fields:[
+   ["applicant_name","Applicant Name","text",true],
+   ["class_name","Class","text",true],
+   ["guardian_name","Guardian Name","text"],
+   ["phone","Phone","text",true],
+   ["address","Address","textarea"],
+   ["application_date","Application Date","date"],
+   ["status","Status","select",["Pending","Approved","Rejected","Enrolled"]]
+  ]
+ },
+
+ notices:{
+  title:"Notices",
+  bn:"নোটিশ",
+  description:"Manage school notices",
+  fields:[
+   ["title","Notice Title","text",true],
+   ["content","Notice Content","textarea",true],
+   ["publish_date","Publish Date","date"],
+   ["status","Status","select",["Published","Draft"]]
+  ]
+ },
+
+ gallery:{
+  title:"Gallery",
+  bn:"গ্যালারি",
+  description:"Manage gallery images",
+  fields:[
+   ["title","Image Title","text",true],
+   ["image_url","Image URL","url",true],
+   ["description","Description","textarea"]
+  ]
+ },
+
+ salary_payments:{
+  title:"Teacher Salary",
+  bn:"শিক্ষক বেতন",
+  description:"Manage teacher salary payments",
+  fields:[
+   ["teacher_id","Teacher ID","text",true],
+   ["payment_month","Payment Month","text",true],
+   ["amount","Amount","number",true],
+   ["payment_date","Payment Date","date"],
+   ["payment_method","Payment Method","select",["Cash","Bank","UPI","Other"]],
+   ["status","Status","select",["Paid","Pending"]]
+  ]
+ }
+
+};
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function showLoading(show=true){
+ document.getElementById("loading")
+  .classList.toggle("show",show);
+}
+
+function showAlert(message,type="success"){
+ const el=document.getElementById("appAlert");
+ el.textContent=message;
+ el.className="alert show "+type;
+
+ setTimeout(()=>{
+  el.className="alert";
+ },4000);
+}
+
+function showLoginAlert(message,type="error"){
+ const el=document.getElementById("loginAlert");
+ el.textContent=message;
+ el.className="alert show "+type;
+}
+
+function escapeHtml(value){
+ if(value===null || value===undefined) return "";
+ return String(value)
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+}
+
+function formatValue(value){
+ if(value===null || value===undefined) return "";
+ if(typeof value==="boolean") return value ? "Yes":"No";
+ return String(value);
+}
+
+function getDisplayName(){
+ return currentProfile?.full_name ||
+        currentProfile?.email ||
+        "Admin";
+}
+
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+async function login(){
+
+ const email=
+  document.getElementById("loginEmail").value.trim();
+
+ const password=
+  document.getElementById("loginPassword").value;
+
+ if(!email || !password){
+  showLoginAlert("Email এবং password দিন।");
+  return;
+ }
+
+ showLoading(true);
+
+ const {data,error}=
+  await supabaseClient.auth.signInWithPassword({
+   email,
+   password
+  });
+
+ if(error){
+  showLoading(false);
+  showLoginAlert(error.message);
+  return;
+ }
+
+ await loadApp(data.user);
+
+ showLoading(false);
+}
+
+
+async function loadApp(user){
+
+ const {data:profile,error}=
+  await supabaseClient
+   .from("profiles")
+   .select("*")
+   .eq("user_id",user.id)
+   .single();
+
+ if(error || !profile){
+
+  await supabaseClient.auth.signOut();
+
+  document.getElementById("loginPage")
+   .classList.remove("hidden");
+
+  showLoginAlert(
+   "আপনার profile পাওয়া যায়নি। Supabase profiles table-এ user-এর role ঠিক আছে কিনা দেখুন।"
+  );
+
+  return;
+ }
+
+ if(!["admin","staff"].includes(profile.role)){
+
+  await supabaseClient.auth.signOut();
+
+  showLoginAlert(
+   "এই account-এর Management System access নেই।"
+  );
+
+  return;
+ }
+
+ currentProfile={
+  ...profile,
+  email:user.email
+ };
+
+ document.getElementById("loginPage")
+  .classList.add("hidden");
+
+ document.getElementById("app")
+  .classList.remove("hidden");
+
+ document.getElementById("userName")
+  .textContent=getDisplayName();
+
+ document.getElementById("userRole")
+  .textContent=profile.role;
+
+ document.getElementById("avatar")
+  .textContent=
+   getDisplayName().charAt(0).toUpperCase();
+
+ document.getElementById("settingsEmail")
+  .textContent=user.email || "";
+
+ document.getElementById("settingsName")
+  .textContent=profile.full_name || "";
+
+ document.getElementById("settingsRole")
+  .textContent=profile.role;
+
+ refreshDashboard();
+}
+
+
+async function logout(){
+
+ await supabaseClient.auth.signOut();
+
+ document.getElementById("app")
+  .classList.add("hidden");
+
+ document.getElementById("loginPage")
+  .classList.remove("hidden");
+
+ document.getElementById("loginPassword")
+  .value="";
+
+ showLoginAlert("আপনি logout করেছেন।","success");
+}
+
+
+/* =========================================================
+   SESSION CHECK
+   ========================================================= */
+
+async function checkSession(){
+
+ showLoading(true);
+
+ const {data:{session}}=
+  await supabaseClient.auth.getSession();
+
+ if(session?.user){
+  await loadApp(session.user);
+ }
+
+ showLoading(false);
+}
+
+supabaseClient.auth.onAuthStateChange(
+ async(event,session)=>{
+
+  if(event==="SIGNED_OUT"){
+   document.getElementById("app")
+    .classList.add("hidden");
+
+   document.getElementById("loginPage")
+    .classList.remove("hidden");
+  }
+ }
+);
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function showPage(page,button){
+
+ document
+  .querySelectorAll(
+   '[id^="page-"]'
+  )
+  .forEach(x=>x.classList.add("hidden"));
+
+ document.getElementById(
+  "page-"+page
+ )?.classList.remove("hidden");
+
+ document
+  .querySelectorAll(".nav button")
+  .forEach(x=>x.classList.remove("active"));
+
+ if(button) button.classList.add("active");
+
+ const titles={
+  dashboard:"Dashboard",
+  reports:"Reports",
+  settings:"Settings"
+ };
+
+ if(configs[page]){
+
+  currentTable=page;
+
+  document.getElementById("page-data")
+   .classList.remove("hidden");
+
+  document.getElementById("dataTitle")
+   .textContent=configs[page].title;
+
+  document.getElementById("dataDescription")
+   .textContent=configs[page].description;
+
+  document.getElementById("topTitle")
+   .textContent=configs[page].title;
+
+  loadTable(page);
+
+ }else{
+
+  document.getElementById("topTitle")
+   .textContent=titles[page] || page;
+ }
+
+ if(page==="dashboard"){
+  refreshDashboard();
+ }
+
+ if(page==="reports"){
+  // nothing
+ }
+
+ toggleSidebar(false);
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+function toggleSidebar(force){
+
+ const sidebar=document.getElementById("sidebar");
+
+ if(force===false){
+  sidebar.classList.remove("open");
+  return;
+ }
+
+ sidebar.classList.toggle("open");
+}
+
+
+/* =========================================================
+   LOAD TABLE
+   ========================================================= */
+
+async function loadTable(table){
+
+ currentTable=table;
+
+ showLoading(true);
+
+ const {data,error}=
+  await supabaseClient
+   .from(table)
+   .select("*")
+   .order("created_at",{ascending:false});
+
+ showLoading(false);
+
+ if(error){
+
+  /*
+   Some tables may not have created_at.
+   Retry without order.
+  */
+
+  const retry=
+   await supabaseClient
+    .from(table)
+    .select("*");
+
+  if(retry.error){
+
+   showAlert(
+    table+" load error: "+retry.error.message,
+    "error"
+   );
+
+   return;
+  }
+
+  currentRows=retry.data || [];
+
+ }else{
+  currentRows=data || [];
+ }
+
+ renderTable(currentRows);
+}
+
+
+/* =========================================================
+   RENDER TABLE
+   ========================================================= */
+
+function renderTable(rows){
+
+ const table=document.getElementById("dataTable");
+ const thead=table.querySelector("thead");
+ const tbody=table.querySelector("tbody");
+
+ if(!rows.length){
+
+  thead.innerHTML="<tr><th>Data</th><th>Action</th></tr>";
+
+  tbody.innerHTML=`
+   <tr>
+    <td colspan="2">
+     No records found.
+    </td>
+   </tr>`;
+
+  return;
+ }
+
+ let keys=Object.keys(rows[0]);
+
+ /*
+  Hide internal fields from table display.
+ */
+ keys=keys.filter(k=>
+  !["id","created_at","updated_at"].includes(k)
+ );
+
+ thead.innerHTML=`
+  <tr>
+   ${keys.map(k=>`<th>${escapeHtml(k)}</th>`).join("")}
+   <th>Action</th>
+  </tr>
+ `;
+
+ tbody.innerHTML=rows.map(row=>{
+
+  const id=row.id;
+
+  return `
+   <tr>
+    ${keys.map(k=>`
+     <td>
+      ${escapeHtml(formatValue(row[k]))}
+     </td>
+    `).join("")}
+
+    <td>
+     <div class="actions">
+
+      <button
+       class="btn btn-primary"
+       onclick='editRecord(${JSON.stringify(row).replaceAll("'","&#39;")})'>
+       Edit
+      </button>
+
+      <button
+       class="btn btn-red"
+       onclick="deleteRecord('${escapeHtml(id)}')">
+       Delete
+      </button>
+
+     </div>
+    </td>
+
+   </tr>
+  `;
+
+ }).join("");
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function filterTable(){
+
+ const q=
+  document.getElementById("searchBox")
+   .value.toLowerCase();
+
+ if(!q){
+  renderTable(currentRows);
+  return;
+ }
+
+ const filtered=currentRows.filter(row=>
+  Object.values(row)
+   .join(" ")
+   .toLowerCase()
+   .includes(q)
+ );
+
+ renderTable(filtered);
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+function openAdd(table){
+
+ currentTable=table;
+ editingId=null;
+
+ const cfg=configs[table];
+
+ if(!cfg){
+  showAlert("Configuration not found.","error");
+  return;
+ }
+
+ document.getElementById("modalTitle")
+  .textContent="Add "+cfg.title;
+
+ document.getElementById("saveBtn")
+  .textContent="💾 Save";
+
+ buildForm();
+
+ document.getElementById("recordModal")
+  .classList.add("show");
+}
+
+
+function buildForm(row={}){
+
+ const cfg=configs[currentTable];
+
+ const html=cfg.fields.map(field=>{
+
+  const [
+   name,
+   label,
+   type,
+   options,
+   required
+  ]=field;
+
+  const value=row[name] ?? "";
+
+  if(type==="textarea"){
+
+   return `
+    <div class="form-group full-col">
+     <label>${label}</label>
+     <textarea
+      name="${name}"
+      rows="4"
+      ${required===true?"required":""}
+     >${escapeHtml(value)}</textarea>
+    </div>
+   `;
+  }
+
+  if(type==="select"){
+
+   return `
+    <div class="form-group">
+     <label>${label}</label>
+     <select
+      name="${name}"
+      ${required===true?"required":""}
+     >
+      <option value="">Select</option>
+
+      ${options.map(o=>`
+       <option
+        value="${escapeHtml(o)}"
+        ${String(value)===String(o)?"selected":""}
+       >
+        ${escapeHtml(o)}
+       </option>
+      `).join("")}
+
+     </select>
+    </div>
+   `;
+  }
+
+  return `
+   <div class="form-group">
+    <label>${label}</label>
+
+    <input
+     type="${type}"
+     name="${name}"
+     value="${escapeHtml(value)}"
+     ${required===true?"required":""}
+    >
+   </div>
+  `;
+
+ }).join("");
+
+ document.getElementById("formFields")
+  .innerHTML=html;
+}
+
+
+/* =========================================================
+   EDIT
+   ========================================================= */
+
+function editRecord(row){
+
+ editingId=row.id;
+
+ const cfg=configs[currentTable];
+
+ document.getElementById("modalTitle")
+  .textContent="Edit "+cfg.title;
+
+ document.getElementById("saveBtn")
+  .textContent="💾 Update";
+
+ buildForm(row);
+
+ document.getElementById("recordModal")
+  .classList.add("show");
+}
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
+async function saveRecord(event){
+
+ event.preventDefault();
+
+ const form=new FormData(
+  document.getElementById("recordForm")
+ );
+
+ const payload={};
+
+ for(const [key,value] of form.entries()){
+
+  /*
+   Convert empty string to null
+  */
+  payload[key]=
+   value.trim()==="" ? null : value.trim();
+ }
+
+ showLoading(true);
+
+ let result;
+
+ if(editingId){
+
+  result=
+   await supabaseClient
+    .from(currentTable)
+    .update(payload)
+    .eq("id",editingId);
+
+ }else{
+
+  result=
+   await supabaseClient
+    .from(currentTable)
+    .insert(payload);
+ }
+
+ showLoading(false);
+
+ if(result.error){
+
+  showAlert(
+   result.error.message,
+   "error"
+  );
+
+  return;
+ }
+
+ closeModal();
+
+ showAlert(
+  editingId ?
+   "Record updated successfully." :
+   "Record added successfully.",
+  "success"
+ );
+
+ loadTable(currentTable);
+ refreshDashboard();
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+async function deleteRecord(id){
+
+ if(!confirm(
+  "এই record permanently delete করতে চান?"
+ )) return;
+
+ showLoading(true);
+
+ const {error}=
+  await supabaseClient
+   .from(currentTable)
+   .delete()
+   .eq("id",id);
+
+ showLoading(false);
+
+ if(error){
+
+  showAlert(
+   "Delete failed: "+error.message,
+   "error"
+  );
+
+  return;
+ }
+
+ showAlert(
+  "Record deleted successfully.",
+  "success"
+ );
+
+ loadTable(currentTable);
+ refreshDashboard();
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+function closeModal(){
+
+ document.getElementById("recordModal")
+  .classList.remove("show");
+
+ document.getElementById("recordForm")
+  .reset();
+
+ editingId=null;
+}
+
+
+/* =========================================================
+   DASHBOARD COUNTS
+   ========================================================= */
+
+async function getCount(table){
+
+ const {count,error}=
+  await supabaseClient
+   .from(table)
+   .select("*",{count:"exact",head:true});
+
+ if(error) return 0;
+
+ return count || 0;
+}
+
+
+async function refreshDashboard(){
+
+ const [
+  students,
+  teachers,
+  admissions,
+  fees
+ ]=await Promise.all([
+  getCount("students"),
+  getCount("teachers"),
+  getCount("admissions"),
+  getCount("fees")
+ ]);
+
+ document.getElementById("statStudents")
+  .textContent=students;
+
+ document.getElementById("statTeachers")
+  .textContent=teachers;
+
+ document.getElementById("statAdmissions")
+  .textContent=admissions;
+
+ document.getElementById("statFees")
+  .textContent=fees;
+
+ loadRecentAdmissions();
+}
+
+
+async function loadRecentAdmissions(){
+
+ const {data,error}=
+  await supabaseClient
+   .from("admissions")
+   .select("*")
+   .limit(5);
+
+ const tbody=
+  document.getElementById("recentAdmissions");
+
+ if(error){
+
+  tbody.innerHTML=`
+   <tr>
+    <td colspan="5">
+     ${escapeHtml(error.message)}
+    </td>
+   </tr>`;
+
+  return;
+ }
+
+ if(!data?.length){
+
+  tbody.innerHTML=`
+   <tr>
+    <td colspan="5">
+     No admission records yet.
+    </td>
+   </tr>`;
+
+  return;
+ }
+
+ tbody.innerHTML=data.map(x=>`
+  <tr>
+   <td>${escapeHtml(
+    x.applicant_name || x.name || ""
+   )}</td>
+
+   <td>${escapeHtml(
+    x.class_name || ""
+   )}</td>
+
+   <td>${escapeHtml(
+    x.guardian_name || ""
+   )}</td>
+
+   <td>${escapeHtml(
+    x.phone || ""
+   )}</td>
+
+   <td>
+    <span class="badge">
+     ${escapeHtml(x.status || "Pending")}
+    </span>
+   </td>
+  </tr>
+ `).join("");
+}
+
+
+/* =========================================================
+   CSV EXPORT
+   ========================================================= */
+
+function csvEscape(value){
+
+ if(value===null || value===undefined)
+  return "";
+
+ let str=String(value);
+
+ if(
+  str.includes(",") ||
+  str.includes('"') ||
+  str.includes("\n")
+ ){
+  str='"'+str.replaceAll('"','""')+'"';
+ }
+
+ return str;
+}
+
+
+function downloadCSV(rows,filename){
+
+ if(!rows.length){
+  alert("No data available.");
+  return;
+ }
+
+ const keys=Object.keys(rows[0]);
+
+ let csv=
+  keys.map(csvEscape).join(",")+"\n";
+
+ csv+=rows.map(row=>
+  keys.map(k=>
+   csvEscape(row[k])
+  ).join(",")
+ ).join("\n");
+
+ const blob=
+  new Blob(
+   ["\ufeff"+csv],
+   {type:"text/csv;charset=utf-8"}
+  );
+
+ const url=
+  URL.createObjectURL(blob);
+
+ const a=document.createElement("a");
+
+ a.href=url;
+ a.download=filename;
+ a.click();
+
+ URL.revokeObjectURL(url);
+}
+
+
+function exportCSV(){
+
+ downloadCSV(
+  currentRows,
+  currentTable+"-report.csv"
+ );
+}
+
+
+async function downloadReport(table){
+
+ showLoading(true);
+
+ const {data,error}=
+  await supabaseClient
+   .from(table)
+   .select("*");
+
+ showLoading(false);
+
+ if(error){
+
+  showAlert(
+   error.message,
+   "error"
+  );
+
+  return;
+ }
+
+ downloadCSV(
+  data || [],
+  table+"-report.csv"
+ );
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+checkSession();
+
+</script>
+
+</body>
+</html>

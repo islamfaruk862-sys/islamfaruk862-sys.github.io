@@ -1,268 +1,292 @@
-Create a complete, professional, production-ready single-file `admin.html` for my real school management system named “Dishari Academy / দিশারী একাডেমী”.
+Create a COMPLETE, ORIGINAL, PRODUCTION-STYLE School Management System Admin Panel for:
 
-IMPORTANT:
-Generate the COMPLETE code from `<!DOCTYPE html>` to `</html>`.
-Return ONLY the final complete HTML code.
-Do not give explanations.
-Do not give partial code.
-Do not omit any JavaScript.
-Do not use fake/demo database data.
-
-==================================================
-SCHOOL INFORMATION
-==================================================
-
-School Name:
+SCHOOL NAME:
 দিশারী একাডেমী
 Dishari Academy
 
-Established:
+LOCATION:
+Gurail Hatkhola, Tapan, Dakshin Dinajpur, West Bengal, India
+
+ESTABLISHED:
 2020
 
-Address:
-Gurail Hatkhola, Tapan,
-Dakshin Dinajpur, West Bengal, India
-
-School Type:
-Residential Educational Institution
-
-Admission:
+ADMISSION:
 Nursery to Class IX
 
-Use the school logo:
-logo.jpg
+CONTACT:
+9609707645
+8167038811
 
 ==================================================
-TECHNOLOGY
+IMPORTANT: OUTPUT REQUIREMENT
 ==================================================
 
-Use only:
+Generate ONLY ONE COMPLETE FILE:
 
-HTML5
-CSS3
-Vanilla JavaScript
-Supabase JavaScript v2 CDN
+admin.html
 
-Use:
+The output must be a complete ready-to-upload HTML file.
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+Do NOT provide explanations.
+Do NOT provide partial code.
+Do NOT use placeholders for HTML/JavaScript logic.
+Do NOT omit any section.
+Do NOT say "continue".
+Do NOT say "rest of code".
+Generate the FULL admin.html from beginning to end.
 
-The website must work directly on GitHub Pages.
-
-No:
-React
-Node.js
-npm
-Build tools
-PHP
-Python
+The file must work directly after uploading to GitHub Pages.
 
 ==================================================
 SUPABASE CONFIGURATION
 ==================================================
 
-Use this Supabase Project URL:
+Use Supabase JavaScript CDN:
 
-const SUPABASE_URL =
- "https://huegvliiwivgdbkfgxq.supabase.co";
+https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
 
-Use this exact placeholder for the browser-safe Publishable Key:
+Supabase Project URL:
 
-const SUPABASE_KEY =
- "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
+https://huegvliiwivgdbkfgxq.supabase.co
+
+Use:
+
+const SUPABASE_URL = "https://huegvliiwivgdbkfgxq.supabase.co";
+
+Use a clearly marked placeholder ONLY for the publishable key:
+
+const SUPABASE_KEY = "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
 
 IMPORTANT:
 
-The user will manually replace:
+The user will replace the placeholder with the real Supabase Publishable Key.
 
-PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE
+The real key format starts with:
 
-with the real:
-
-sb_publishable_...
-
-key.
+sb_publishable_
 
 NEVER use:
+
 sb_secret_
 service_role
 database password
 database connection string
 
-NEVER generate broken code such as:
+NEVER put a secret/service_role key anywhere in this HTML.
+
+The correct syntax MUST be:
+
+const SUPABASE_URL = "https://huegvliiwivgdbkfgxq.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_REAL_KEY_HERE";
+
+Then initialize Supabase exactly like:
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    {
+        auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true
+        }
+    }
+);
+
+DO NOT create broken syntax such as:
 
 const SUPABASE_KEY =
 "const SUPABASE_KEY = "sb_publishable_xxx";";
 
-The correct syntax must be:
-
-const SUPABASE_KEY =
- "sb_publishable_xxxxxxxxxxxxxxxxx";
-
-Initialize Supabase with:
-
-const supabaseClient =
-window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY,
- {
-  auth:{
-   persistSession:true,
-   autoRefreshToken:true,
-   detectSessionInUrl:true
-  }
- }
-);
+DO NOT put SUPABASE_URL inside createClient as an assignment.
 
 ==================================================
 AUTHENTICATION
 ==================================================
 
-Create a professional login page.
+Create a professional login screen.
 
 Fields:
 
 Admin Email
 Password
 
-Login using:
+Buttons:
+
+Login
+Logout
+
+Use real Supabase Authentication:
 
 supabaseClient.auth.signInWithPassword({
- email,
- password
-})
-
-After successful login:
-
-1. Get authenticated user.
-2. Read profile from `profiles`.
-3. Find profile using `user_id`.
-4. Check `role`.
-5. Allow only:
-   admin
-   staff
-
-If role is not admin or staff:
-- Sign out
-- Show unauthorized message
-
-On page load:
-- Check existing session
-- If session exists, open dashboard
-- Otherwise show login page
+    email,
+    password
+});
 
 Use:
 
-supabaseClient.auth.signOut()
+supabaseClient.auth.getSession()
 
-for logout.
+Use:
 
-Do not store passwords.
-Do not create Auth users from frontend.
+supabaseClient.auth.onAuthStateChange()
+
+After successful login:
+
+1. Get the logged-in user's ID.
+2. Read public.profiles.
+3. Check the user's role.
+4. Allow access only if role is:
+   admin
+   OR
+   staff
+
+If role is not admin/staff:
+
+Show:
+"আপনার এই Management Panel ব্যবহার করার অনুমতি নেই।"
+
+Then sign out.
+
+Never store passwords in localStorage.
+
+Never create fake authentication.
+
+Never hard-code an admin password.
 
 ==================================================
 DESIGN
 ==================================================
 
-Create a premium modern school dashboard.
+Create a PREMIUM, MODERN, PROFESSIONAL school management dashboard.
 
-Theme:
-Blue
-White
-Dark navy
-Light gray
+Use:
 
-Features:
+HTML5
+CSS3
+Vanilla JavaScript
+Supabase JS v2
+
+No React.
+No Vue.
+No Angular.
+No Bootstrap dependency.
+No Tailwind dependency.
+
+The design must be:
 
 Responsive
 Mobile friendly
-Tablet friendly
 Desktop friendly
-Modern cards
+Tablet friendly
+
+Especially optimized for Android mobile browsers.
+
+Use a clean school-management style.
+
+Use:
+
+White cards
+Soft shadows
 Rounded corners
-Professional tables
-Sidebar
+Professional typography
+Modern sidebar
 Top navigation
+Responsive tables
 Modal forms
-Loading spinner
-Success alerts
-Error alerts
-Hover effects
-Smooth UI
+Toast notifications
+Loading indicators
+Empty states
+Error states
 
-Use Bengali + English labels.
+Use Bengali labels where appropriate.
 
 ==================================================
-SIDEBAR
+SCHOOL BRANDING
 ==================================================
 
-Create:
+Use the Dishari Academy logo.
 
-🏠 Dashboard
-👨‍🎓 Students
-👨‍🏫 Teachers
-📅 Attendance
-💰 Fees
-📝 Exams
-🏆 Results
-📥 Admissions
-📢 Notices
-🖼️ Gallery
-💳 Teacher Salary
-📊 Reports
-⚙️ Settings
-🚪 Logout
+Logo path:
 
-On mobile:
-- Sidebar must slide from left.
-- Hamburger button must open/close sidebar.
+assets/logo.png
+
+If the logo file is unavailable, use a clean fallback school icon.
+
+Header:
+
+দিশারী একাডেমী
+School Management System
+
+==================================================
+SIDEBAR MENU
+==================================================
+
+Create these menu items:
+
+1. Dashboard
+2. Students
+3. Teachers
+4. Attendance
+5. Fees
+6. Exams
+7. Results
+8. Admissions
+9. Notices
+10. Gallery
+11. Teacher Salary
+12. Reports
+13. Settings
+14. Logout
+
+Each menu item must actually work.
+
+Do NOT create dummy buttons.
 
 ==================================================
 DASHBOARD
 ==================================================
 
-Dashboard must use REAL Supabase data.
+Dashboard must load REAL data from Supabase.
 
-Show:
+Show live statistics:
 
 Total Students
 Total Teachers
-Admissions
-Fee Records
+Today's Attendance
+Total Fees Collected
+Pending Fees
+New Admissions
+Upcoming Exams
+Published Notices
 
-Do NOT use fake numbers.
+Do not use fake numbers.
 
-Load counts from:
+Use Supabase queries.
 
-students
-teachers
-admissions
-fees
+If a table is empty, show 0.
 
-Also show:
+Show:
 
 Recent Admissions
-Quick Actions
-School Information
+Recent Students
+Recent Fees
+Recent Notices
 
-Quick Actions:
+Use real database data.
 
-Add Student
-Add Teacher
-Add Fee
-Attendance
-Add Exam
-Add Notice
+Add Refresh button.
 
 ==================================================
-STUDENTS
+STUDENTS MODULE
 ==================================================
 
-Use table:
+Table:
 
 students
 
-Fields:
+Expected columns:
 
 id
 admission_no
@@ -276,32 +300,51 @@ phone
 address
 admission_date
 status
+created_at
 
-Create:
+Features:
 
 Add Student
 Edit Student
 Delete Student
-Search
-Refresh
+Search Student
+Filter by Class
+Filter by Status
+View Student
 Export CSV
+
+Student form:
+
+Admission Number
+Student Name
+Class
+Section
+Gender
+Date of Birth
+Guardian Name
+Phone
+Address
+Admission Date
+Status
 
 Status:
 
 Active
 Inactive
-Passed
-Left
+
+Validate required fields.
+
+Use Supabase insert/update/delete/select.
 
 ==================================================
-TEACHERS
+TEACHERS MODULE
 ==================================================
 
-Use table:
+Table:
 
 teachers
 
-Fields:
+Columns:
 
 id
 employee_id
@@ -312,57 +355,80 @@ email
 joining_date
 salary
 status
+created_at
 
-Create:
+Features:
 
 Add Teacher
 Edit Teacher
 Delete Teacher
 Search
-Refresh
+Filter
 Export CSV
 
+Teacher form:
+
+Employee ID
+Teacher Name
+Subject
+Phone
+Email
+Joining Date
+Salary
+Status
+
 ==================================================
-ATTENDANCE
+ATTENDANCE MODULE
 ==================================================
 
-Use table:
+Table:
 
 attendance
 
-Fields:
+Columns:
 
 id
 student_id
 attendance_date
 status
 remarks
+created_at
 
 Status:
 
 Present
 Absent
 Late
-Leave
 
-Create:
+Features:
 
-Add Attendance
+Select Date
+Search Student
+Mark Present
+Mark Absent
+Mark Late
 Edit Attendance
 Delete Attendance
-Search
-Refresh
+Attendance Report
 Export CSV
 
+Show today's attendance summary:
+
+Present
+Absent
+Late
+
+Do not use fake attendance data.
+
 ==================================================
-FEES
+FEES MODULE
 ==================================================
 
-Use table:
+Table:
 
 fees
 
-Fields:
+Columns:
 
 id
 student_id
@@ -373,63 +439,70 @@ payment_date
 payment_method
 status
 receipt_no
+created_at
 
-Payment methods:
-
-Cash
-UPI
-Bank
-Other
-
-Status:
-
-Paid
-Partial
-Due
-
-Create:
+Features:
 
 Add Fee
 Edit Fee
 Delete Fee
 Search
-Refresh
-Export CSV
+Filter by month
+Filter by status
+Payment recording
+CSV export
+
+Status:
+
+Paid
+Partial
+Pending
+
+Automatically calculate:
+
+Due Amount = amount - paid_amount
+
+Show:
+
+Total Fee
+Total Paid
+Total Due
 
 ==================================================
-EXAMS
+EXAMS MODULE
 ==================================================
 
-Use table:
+Table:
 
 exams
 
-Fields:
+Columns:
 
 id
 exam_name
 class_name
 exam_date
 description
+created_at
 
-Create:
+Features:
 
 Add Exam
 Edit Exam
 Delete Exam
 Search
-Refresh
+Filter by class
 Export CSV
 
 ==================================================
-RESULTS
+RESULTS MODULE
 ==================================================
 
-Use table:
+Table:
 
 results
 
-Fields:
+Columns:
 
 id
 student_id
@@ -439,25 +512,41 @@ marks
 total_marks
 grade
 remarks
+created_at
 
-Create:
+Features:
 
 Add Result
 Edit Result
 Delete Result
-Search
-Refresh
+Search Student
+Filter Exam
+Filter Class
 Export CSV
 
+Automatically calculate percentage where possible.
+
+Grade examples:
+
+A+
+A
+B+
+B
+C
+D
+F
+
+Do not overwrite manually entered grade if the database already contains one unless user chooses automatic calculation.
+
 ==================================================
-ADMISSIONS
+ADMISSIONS MODULE
 ==================================================
 
-Use table:
+Table:
 
 admissions
 
-Fields:
+Columns:
 
 id
 applicant_name
@@ -467,91 +556,100 @@ phone
 address
 application_date
 status
+created_at
 
 Status:
 
 Pending
 Approved
 Rejected
-Enrolled
 
-Create:
+Features:
 
 Add Admission
 Edit Admission
 Delete Admission
 Search
-Refresh
+Filter
+Approve
+Reject
 Export CSV
 
-Dashboard must show recent admissions from the database.
+Show recent admission applications.
 
 ==================================================
-NOTICES
+NOTICES MODULE
 ==================================================
 
-Use table:
+Table:
 
 notices
 
-Fields:
+Columns:
 
 id
 title
 content
 publish_date
 status
+created_at
+
+Features:
+
+Add Notice
+Edit Notice
+Delete Notice
+Publish/Unpublish
+Search
+Export CSV
 
 Status:
 
 Published
 Draft
 
-Create:
-
-Add Notice
-Edit Notice
-Delete Notice
-Search
-Refresh
-Export CSV
-
 ==================================================
-GALLERY
+GALLERY MODULE
 ==================================================
 
-Use table:
+Table:
 
 gallery
 
-Fields:
+Columns:
 
 id
 title
 image_url
 description
+created_at
 
-Create:
+Features:
 
-Add Gallery
-Edit Gallery
-Delete Gallery
+Add Gallery Image
+Edit
+Delete
 Search
-Refresh
-Export CSV
 
-For now use image URL.
-Do not create fake upload functionality.
+Use image URL.
+
+Show image preview.
+
+IMPORTANT:
+
+Do not fake a file-upload system if Supabase Storage has not been configured.
+
+Use image URL input.
 
 ==================================================
-TEACHER SALARY
+TEACHER SALARY MODULE
 ==================================================
 
-Use table:
+Table:
 
 salary_payments
 
-Fields:
+Columns:
 
 id
 teacher_id
@@ -560,34 +658,46 @@ amount
 payment_date
 payment_method
 status
+created_at
 
-Create:
+Features:
 
 Add Salary Payment
-Edit Salary Payment
-Delete Salary Payment
+Edit
+Delete
 Search
-Refresh
+Filter month
 Export CSV
+
+Show:
+
+Total Salary Paid
+Pending Salary
 
 ==================================================
 REPORTS
 ==================================================
 
-Create Reports page with:
+Create a professional Reports section.
 
-Students CSV
-Teachers CSV
-Attendance CSV
-Fees CSV
-Exams CSV
-Results CSV
-Admissions CSV
-Salary CSV
+Reports:
 
-Export REAL Supabase records.
+Student Report
+Teacher Report
+Attendance Report
+Fees Report
+Exam Report
+Result Report
+Admission Report
+Teacher Salary Report
 
-CSV must work correctly on Android Chrome.
+Each report must support:
+
+Search
+Filter
+CSV Export
+
+CSV export must export real Supabase data.
 
 ==================================================
 SETTINGS
@@ -595,274 +705,77 @@ SETTINGS
 
 Show:
 
-Logged-in Email
-Full Name
-Role
+School Name
+School Location
+Established Year
+Contact Numbers
+Logged-in User
+User Role
 
 Show:
 
 Admin
-or
 Staff
 
-Include Logout button.
+Add:
+
+Refresh Data
+Logout
+
+Do not allow users to change Supabase credentials from the UI.
 
 ==================================================
-CRUD
+PROFILE / ROLE
 ==================================================
 
-Every management section must support:
+Use:
 
-CREATE
-READ
-UPDATE
-DELETE
+public.profiles
 
-Use Supabase:
+Expected fields:
 
-.insert()
-.select()
-.update()
-.delete()
+user_id
+full_name
+role
 
-After successful operation:
+Use role:
 
-Close modal
-Show success message
-Reload table
-Refresh dashboard where necessary
+admin
+staff
 
-On error:
-
-Show readable error message.
-
-==================================================
-SEARCH
-==================================================
-
-Every table must have a search box.
-
-Search currently loaded records.
-
-==================================================
-TABLES
-==================================================
-
-Tables must be horizontally scrollable on mobile.
-
-Show relevant fields and:
-
-✏️ Edit
-🗑️ Delete
-
-Before deleting:
-
-"Are you sure you want to delete this record?"
-
-==================================================
-MODAL
-==================================================
-
-Use reusable modal form.
-
-Generate form fields dynamically from configuration.
-
-Support:
-
-text
-email
-number
-date
-textarea
-select
-
-Required fields must use required validation.
-
-==================================================
-LOADING
-==================================================
-
-Create full-screen loading overlay.
-
-Show it during:
-
-Login
-Dashboard loading
-Table loading
-Save
-Update
-Delete
-
-==================================================
-ERROR HANDLING
-==================================================
-
-Handle:
-
-Authentication errors
-RLS errors
-Permission errors
-Network errors
-Missing table
-Missing column
-Invalid data
-
-Never leave the page blank.
-
-If key is still placeholder, show:
-
-"Supabase Publishable Key is not configured."
+Only admin/staff can enter dashboard.
 
 ==================================================
 DATABASE COMPATIBILITY
 ==================================================
 
-Some tables may or may not have `created_at`.
+Some tables may not have created_at.
 
-When loading data:
+Therefore, when querying data:
 
-First try:
+First try normal select including created_at.
 
-.order("created_at",{ascending:false})
+If that fails specifically because created_at does not exist, retry without created_at.
 
-If that fails because `created_at` does not exist,
-retry the query without ordering.
+Do NOT crash the application.
 
-Do not crash the application.
-
-==================================================
-PROFILE
-==================================================
-
-Use:
-
-profiles
-
-Fields:
-
-id
-user_id
-full_name
-role
-
-Get current profile using authenticated user's ID.
-
-Allowed roles:
-
-admin
-staff
+Show user-friendly error messages.
 
 ==================================================
-FUNCTIONS
+RELATIONSHIPS
 ==================================================
 
-Create reusable functions:
+Where possible:
 
-login()
-logout()
-checkSession()
-loadProfile()
-loadDashboard()
-refreshDashboard()
-showPage()
-toggleSidebar()
-loadTable()
-openAdd()
-openEdit()
-saveRecord()
-deleteRecord()
-closeModal()
-filterTable()
-exportCSV()
-downloadReport()
-showAlert()
-showLoading()
+Students should be selected from students table.
 
-==================================================
-SCHOOL INFORMATION
-==================================================
+Teachers should be selected from teachers table.
 
-Show:
+Exams should be selected from exams table.
 
-দিশারী একাডেমী
+Use dropdowns instead of asking the user to manually enter IDs when practical.
 
-Gurail Hatkhola, Tapan
+Examples:
 
-Dakshin Dinajpur, West Bengal
-
-Established: 2020
-
-Residential Educational Institution
-
-Do NOT invent:
-
-Board affiliation
-UDISE number
-Principal name
-Teacher names
-Student numbers
-School results
-Fees
-Accreditation
-
-==================================================
-LOGO
-==================================================
-
-Use:
-
-logo.jpg
-
-If logo does not exist, hide it gracefully.
-
-==================================================
-IMPORTANT CODE QUALITY
-==================================================
-
-The final code must have:
-
-- Complete HTML
-- Complete CSS
-- Complete JavaScript
-- No missing closing tags
-- No broken quotation marks
-- No duplicate `const SUPABASE_KEY`
-- No duplicate JavaScript declarations
-- No syntax errors
-- No fake database values
-- No incomplete functions
-- No TODO placeholders for essential functionality
-
-MOST IMPORTANT:
-
-The final code MUST contain exactly this configuration structure:
-
-const SUPABASE_URL =
- "https://huegvliiwivgdbkfgxq.supabase.co";
-
-const SUPABASE_KEY =
- "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
-
-The user will replace only the placeholder with their real `sb_publishable_...` key.
-
-==================================================
-FINAL OUTPUT
-==================================================
-
-Return ONLY the complete ready-to-use:
-
-admin.html
-
-from:
-
-<!DOCTYPE html>
-
-to:
-
-</html>
-
-Do not shorten the code.
-Do not say "remaining code omitted".
-Do not use "...".
-Do not provide demo data.
-Do not provide explanations.
+Attendance:
+Select Student

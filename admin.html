@@ -1,1905 +1,868 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dishari Academy | Management System</title>
+Create a complete, professional, production-ready single-file `admin.html` for my real school management system named “Dishari Academy / দিশারী একাডেমী”.
+
+IMPORTANT:
+Generate the COMPLETE code from `<!DOCTYPE html>` to `</html>`.
+Return ONLY the final complete HTML code.
+Do not give explanations.
+Do not give partial code.
+Do not omit any JavaScript.
+Do not use fake/demo database data.
+
+==================================================
+SCHOOL INFORMATION
+==================================================
+
+School Name:
+দিশারী একাডেমী
+Dishari Academy
+
+Established:
+2020
+
+Address:
+Gurail Hatkhola, Tapan,
+Dakshin Dinajpur, West Bengal, India
+
+School Type:
+Residential Educational Institution
+
+Admission:
+Nursery to Class IX
+
+Use the school logo:
+logo.jpg
+
+==================================================
+TECHNOLOGY
+==================================================
+
+Use only:
+
+HTML5
+CSS3
+Vanilla JavaScript
+Supabase JavaScript v2 CDN
+
+Use:
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
- --primary:#2563eb;
- --primary2:#1d4ed8;
- --dark:#0f172a;
- --dark2:#1e293b;
- --bg:#f1f5f9;
- --white:#fff;
- --text:#0f172a;
- --muted:#64748b;
- --border:#e2e8f0;
- --green:#16a34a;
- --red:#dc2626;
- --orange:#ea580c;
- --purple:#7c3aed;
-}
-body{
- font-family:Arial,"Noto Sans Bengali",sans-serif;
- background:var(--bg);
- color:var(--text);
-}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-
-/* LOGIN */
-.login-page{
- min-height:100vh;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:20px;
- background:linear-gradient(135deg,#0f172a,#1d4ed8);
-}
-.login-card{
- width:100%;
- max-width:430px;
- background:white;
- border-radius:22px;
- padding:30px;
- box-shadow:0 25px 70px rgba(0,0,0,.25);
-}
-.login-logo{
- width:90px;
- height:90px;
- object-fit:contain;
- display:block;
- margin:0 auto 12px;
-}
-.login-card h1{text-align:center;font-size:25px}
-.login-card .sub{text-align:center;color:#64748b;margin:7px 0 25px}
-.form-group{margin-bottom:14px}
-.form-group label{
- display:block;
- font-size:14px;
- font-weight:700;
- margin-bottom:6px;
-}
-.form-group input,
-.form-group select,
-.form-group textarea{
- width:100%;
- border:1px solid var(--border);
- border-radius:10px;
- padding:12px;
- outline:none;
- background:#fff;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
- border-color:var(--primary);
- box-shadow:0 0 0 3px rgba(37,99,235,.1);
-}
-.btn{
- border:0;
- border-radius:9px;
- padding:10px 15px;
- font-weight:700;
-}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:var(--primary2)}
-.btn-green{background:var(--green);color:#fff}
-.btn-red{background:var(--red);color:#fff}
-.btn-gray{background:#e2e8f0;color:#0f172a}
-.btn-orange{background:var(--orange);color:#fff}
-.full{width:100%}
-
-/* APP */
-.app{min-height:100vh;display:flex}
-.sidebar{
- width:260px;
- background:var(--dark);
- color:white;
- position:fixed;
- top:0;left:0;bottom:0;
- overflow-y:auto;
- z-index:1000;
-}
-.brand{
- padding:20px;
- border-bottom:1px solid rgba(255,255,255,.1);
- display:flex;
- align-items:center;
- gap:12px;
-}
-.brand img{
- width:48px;height:48px;
- border-radius:50%;
- background:white;
- object-fit:contain;
-}
-.brand strong{font-size:16px}
-.brand small{display:block;color:#94a3b8;margin-top:3px}
-.nav{padding:12px}
-.nav button{
- width:100%;
- text-align:left;
- border:0;
- background:transparent;
- color:#cbd5e1;
- padding:12px;
- border-radius:9px;
- margin:2px 0;
- font-weight:600;
-}
-.nav button:hover,.nav button.active{
- background:#1e40af;
- color:white;
-}
-.main{
- margin-left:260px;
- width:calc(100% - 260px);
- min-height:100vh;
-}
-.topbar{
- height:68px;
- background:white;
- border-bottom:1px solid var(--border);
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 22px;
- position:sticky;
- top:0;
- z-index:900;
-}
-.menu-btn{
- display:none;
- border:0;
- background:#e2e8f0;
- padding:9px 12px;
- border-radius:8px;
-}
-.user-info{
- display:flex;
- align-items:center;
- gap:10px;
-}
-.avatar{
- width:40px;height:40px;
- background:#dbeafe;
- color:#1d4ed8;
- border-radius:50%;
- display:flex;
- align-items:center;
- justify-content:center;
- font-weight:800;
-}
-.content{padding:22px}
-
-/* DASHBOARD */
-.page-title{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:10px;
- margin-bottom:20px;
-}
-.page-title h2{font-size:24px}
-.page-title p{color:var(--muted);font-size:14px;margin-top:4px}
-.stats{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:15px;
- margin-bottom:20px;
-}
-.stat{
- background:white;
- border:1px solid var(--border);
- border-radius:15px;
- padding:18px;
-}
-.stat .icon{font-size:27px}
-.stat .label{color:var(--muted);font-size:13px;margin-top:9px}
-.stat .num{font-size:27px;font-weight:800;margin-top:4px}
-.dashboard-grid{
- display:grid;
- grid-template-columns:2fr 1fr;
- gap:18px;
-}
-.card{
- background:white;
- border:1px solid var(--border);
- border-radius:15px;
- padding:18px;
- margin-bottom:18px;
-}
-.card h3{margin-bottom:14px}
-.quick{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:10px;
-}
-.quick button{
- padding:15px 8px;
- border:1px solid var(--border);
- background:#f8fafc;
- border-radius:10px;
-}
-.quick button:hover{background:#eff6ff;border-color:#93c5fd}
-
-/* TABLE */
-.table-wrap{overflow-x:auto}
-table{
- width:100%;
- border-collapse:collapse;
- min-width:700px;
-}
-th,td{
- padding:11px 10px;
- border-bottom:1px solid var(--border);
- text-align:left;
- font-size:13px;
-}
-th{background:#f8fafc;font-weight:800}
-.badge{
- display:inline-block;
- padding:4px 8px;
- border-radius:20px;
- background:#dbeafe;
- color:#1d4ed8;
- font-size:11px;
- font-weight:700;
-}
-.actions{display:flex;gap:5px;flex-wrap:wrap}
-.actions button{padding:6px 9px;font-size:11px}
-
-/* TOOLBAR */
-.toolbar{
- display:flex;
- gap:9px;
- flex-wrap:wrap;
- margin-bottom:15px;
-}
-.toolbar input,.toolbar select{
- border:1px solid var(--border);
- padding:10px;
- border-radius:9px;
- background:white;
-}
-
-/* MODAL */
-.modal{
- position:fixed;
- inset:0;
- background:rgba(15,23,42,.6);
- display:none;
- align-items:center;
- justify-content:center;
- padding:15px;
- z-index:2000;
-}
-.modal.show{display:flex}
-.modal-box{
- width:100%;
- max-width:650px;
- max-height:92vh;
- overflow:auto;
- background:white;
- border-radius:17px;
- padding:20px;
-}
-.modal-head{
- display:flex;
- align-items:center;
- justify-content:space-between;
- margin-bottom:15px;
-}
-.close{
- border:0;
- background:#fee2e2;
- color:#b91c1c;
- width:35px;height:35px;
- border-radius:50%;
- font-size:18px;
-}
-.form-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
-}
-.form-grid .full-col{grid-column:1/-1}
-
-/* ALERT */
-.alert{
- padding:12px 14px;
- border-radius:10px;
- margin-bottom:15px;
- font-size:13px;
- display:none;
-}
-.alert.show{display:block}
-.alert.error{background:#fee2e2;color:#991b1b}
-.alert.success{background:#dcfce7;color:#166534}
-
-/* LOADING */
-.loading{
- position:fixed;
- inset:0;
- background:rgba(255,255,255,.75);
- z-index:3000;
- display:none;
- align-items:center;
- justify-content:center;
-}
-.loading.show{display:flex}
-.spinner{
- width:45px;height:45px;
- border:5px solid #dbeafe;
- border-top-color:#2563eb;
- border-radius:50%;
- animation:spin 1s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* RESPONSIVE */
-@media(max-width:900px){
- .sidebar{transform:translateX(-100%);transition:.25s}
- .sidebar.open{transform:translateX(0)}
- .main{margin-left:0;width:100%}
- .menu-btn{display:block}
- .stats{grid-template-columns:repeat(2,1fr)}
- .dashboard-grid{grid-template-columns:1fr}
-}
-@media(max-width:600px){
- .content{padding:13px}
- .topbar{padding:0 12px}
- .stats{grid-template-columns:1fr 1fr;gap:9px}
- .stat{padding:13px}
- .stat .num{font-size:22px}
- .quick{grid-template-columns:1fr 1fr}
- .form-grid{grid-template-columns:1fr}
- .form-grid .full-col{grid-column:auto}
- .page-title h2{font-size:20px}
-}
-</style>
-</head>
-
-<body>
-
-<!-- LOADING -->
-<div class="loading" id="loading">
- <div class="spinner"></div>
-</div>
-
-<!-- LOGIN -->
-<section class="login-page" id="loginPage">
- <div class="login-card">
-
-  <img src="logo.jpg" class="login-logo"
-       onerror="this.style.display='none'">
-
-  <h1>দিশারী একাডেমী</h1>
-  <div class="sub">School Management System</div>
-
-  <div class="alert" id="loginAlert"></div>
-
-  <div class="form-group">
-   <label>Admin Email</label>
-   <input type="email" id="loginEmail"
-          placeholder="admin@example.com">
-  </div>
-
-  <div class="form-group">
-   <label>Password</label>
-   <input type="password" id="loginPassword"
-          placeholder="Password">
-  </div>
-
-  <button class="btn btn-primary full"
-          onclick="login()">
-    🔐 Login to Dashboard
-  </button>
-
-  <p style="font-size:12px;color:#64748b;text-align:center;margin-top:15px">
-   Authorized school staff only
-  </p>
-
- </div>
-</section>
-
-<!-- APP -->
-<div class="app hidden" id="app">
-
- <!-- SIDEBAR -->
- <aside class="sidebar" id="sidebar">
-
-  <div class="brand">
-   <img src="logo.jpg" onerror="this.style.display='none'">
-   <div>
-    <strong>Dishari Academy</strong>
-    <small>Management System</small>
-   </div>
-  </div>
-
-  <nav class="nav">
-
-   <button class="active" onclick="showPage('dashboard',this)">
-    🏠 Dashboard
-   </button>
-
-   <button onclick="showPage('students',this)">
-    👨‍🎓 Students
-   </button>
-
-   <button onclick="showPage('teachers',this)">
-    👨‍🏫 Teachers
-   </button>
-
-   <button onclick="showPage('attendance',this)">
-    📅 Attendance
-   </button>
-
-   <button onclick="showPage('fees',this)">
-    💰 Fees
-   </button>
-
-   <button onclick="showPage('exams',this)">
-    📝 Exams
-   </button>
-
-   <button onclick="showPage('results',this)">
-    🏆 Results
-   </button>
-
-   <button onclick="showPage('admissions',this)">
-    📥 Admissions
-   </button>
-
-   <button onclick="showPage('notices',this)">
-    📢 Notices
-   </button>
-
-   <button onclick="showPage('gallery',this)">
-    🖼️ Gallery
-   </button>
-
-   <button onclick="showPage('salary',this)">
-    💳 Teacher Salary
-   </button>
-
-   <button onclick="showPage('reports',this)">
-    📊 Reports
-   </button>
-
-   <button onclick="showPage('settings',this)">
-    ⚙️ Settings
-   </button>
-
-   <button onclick="logout()" style="margin-top:15px;color:#fca5a5">
-    🚪 Logout
-   </button>
-
-  </nav>
- </aside>
-
- <!-- MAIN -->
- <main class="main">
-
-  <header class="topbar">
-
-   <button class="menu-btn" onclick="toggleSidebar()">
-    ☰
-   </button>
-
-   <div>
-    <strong id="topTitle">Dashboard</strong>
-   </div>
-
-   <div class="user-info">
-    <div>
-     <strong id="userName">Admin</strong>
-     <div style="font-size:11px;color:#64748b"
-          id="userRole">admin</div>
-    </div>
-    <div class="avatar" id="avatar">A</div>
-   </div>
-
-  </header>
-
-  <div class="content">
-
-   <div class="alert" id="appAlert"></div>
-
-   <!-- DASHBOARD -->
-   <section id="page-dashboard">
-
-    <div class="page-title">
-     <div>
-      <h2>Dashboard</h2>
-      <p>দিশারী একাডেমী — School Management System</p>
-     </div>
-     <button class="btn btn-primary"
-             onclick="refreshDashboard()">
-      🔄 Refresh
-     </button>
-    </div>
-
-    <div class="stats">
-
-     <div class="stat">
-      <div class="icon">👨‍🎓</div>
-      <div class="label">Total Students</div>
-      <div class="num" id="statStudents">0</div>
-     </div>
-
-     <div class="stat">
-      <div class="icon">👨‍🏫</div>
-      <div class="label">Total Teachers</div>
-      <div class="num" id="statTeachers">0</div>
-     </div>
-
-     <div class="stat">
-      <div class="icon">📥</div>
-      <div class="label">Admissions</div>
-      <div class="num" id="statAdmissions">0</div>
-     </div>
-
-     <div class="stat">
-      <div class="icon">💰</div>
-      <div class="label">Fee Records</div>
-      <div class="num" id="statFees">0</div>
-     </div>
-
-    </div>
-
-    <div class="dashboard-grid">
-
-     <div class="card">
-      <h3>⚡ Quick Actions</h3>
-
-      <div class="quick">
-
-       <button onclick="openAdd('students')">
-        ➕ Add Student
-       </button>
-
-       <button onclick="openAdd('teachers')">
-        ➕ Add Teacher
-       </button>
-
-       <button onclick="openAdd('fees')">
-        💰 Add Fee
-       </button>
-
-       <button onclick="openAdd('attendance')">
-        📅 Attendance
-       </button>
-
-       <button onclick="openAdd('exams')">
-        📝 Add Exam
-       </button>
-
-       <button onclick="openAdd('notices')">
-        📢 Add Notice
-       </button>
-
-      </div>
-     </div>
-
-     <div class="card">
-      <h3>🏫 School Information</h3>
-
-      <p><b>দিশারী একাডেমী</b></p>
-      <p style="margin-top:7px;color:#64748b">
-       Gurail Hatkhola, Tapan
-      </p>
-      <p style="color:#64748b">
-       Dakshin Dinajpur, West Bengal
-      </p>
-      <p style="margin-top:10px">
-       Established: <b>2020</b>
-      </p>
-     </div>
-
-    </div>
-
-    <div class="card">
-     <h3>🕐 Recent Admissions</h3>
-     <div class="table-wrap">
-      <table>
-       <thead>
-        <tr>
-         <th>Name</th>
-         <th>Class</th>
-         <th>Guardian</th>
-         <th>Phone</th>
-         <th>Status</th>
-        </tr>
-       </thead>
-       <tbody id="recentAdmissions">
-        <tr>
-         <td colspan="5">Loading...</td>
-        </tr>
-       </tbody>
-      </table>
-     </div>
-    </div>
-
-   </section>
-
-   <!-- GENERIC PAGE -->
-   <section id="page-data" class="hidden">
-
-    <div class="page-title">
-     <div>
-      <h2 id="dataTitle">Students</h2>
-      <p id="dataDescription">Manage records</p>
-     </div>
-
-     <button class="btn btn-primary"
-             id="addButton"
-             onclick="openAdd(currentTable)">
-      ➕ Add
-     </button>
-    </div>
-
-    <div class="card">
-
-     <div class="toolbar">
-      <input id="searchBox"
-             placeholder="🔍 Search..."
-             oninput="filterTable()">
-
-      <button class="btn btn-gray"
-              onclick="loadTable(currentTable)">
-       🔄 Refresh
-      </button>
-
-      <button class="btn btn-green"
-              onclick="exportCSV()">
-       📥 Export CSV
-      </button>
-     </div>
-
-     <div class="table-wrap">
-      <table id="dataTable">
-       <thead></thead>
-       <tbody></tbody>
-      </table>
-     </div>
-
-    </div>
-
-   </section>
-
-   <!-- REPORTS -->
-   <section id="page-reports" class="hidden">
-
-    <div class="page-title">
-     <div>
-      <h2>📊 Reports</h2>
-      <p>Export school management data</p>
-     </div>
-    </div>
-
-    <div class="card">
-
-     <h3>Database Reports</h3>
-
-     <div class="quick">
-
-      <button onclick="downloadReport('students')">
-       👨‍🎓 Students CSV
-      </button>
-
-      <button onclick="downloadReport('teachers')">
-       👨‍🏫 Teachers CSV
-      </button>
-
-      <button onclick="downloadReport('fees')">
-       💰 Fees CSV
-      </button>
-
-      <button onclick="downloadReport('attendance')">
-       📅 Attendance CSV
-      </button>
-
-      <button onclick="downloadReport('results')">
-       🏆 Results CSV
-      </button>
-
-      <button onclick="downloadReport('admissions')">
-       📥 Admissions CSV
-      </button>
-
-      <button onclick="downloadReport('salary_payments')">
-       💳 Salary CSV
-      </button>
-
-     </div>
-
-    </div>
-
-   </section>
-
-   <!-- SETTINGS -->
-   <section id="page-settings" class="hidden">
-
-    <div class="page-title">
-     <div>
-      <h2>⚙️ Settings</h2>
-      <p>Current account information</p>
-     </div>
-    </div>
-
-    <div class="card">
-
-     <h3>Account</h3>
-
-     <p><b>Email:</b>
-       <span id="settingsEmail"></span>
-     </p>
-
-     <p style="margin-top:10px">
-       <b>Name:</b>
-       <span id="settingsName"></span>
-     </p>
-
-     <p style="margin-top:10px">
-       <b>Role:</b>
-       <span class="badge" id="settingsRole"></span>
-     </p>
-
-     <hr style="margin:20px 0;border:0;border-top:1px solid #e2e8f0">
-
-     <button class="btn btn-red"
-             onclick="logout()">
-      🚪 Logout
-     </button>
-
-    </div>
-
-   </section>
-
-  </div>
- </main>
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="recordModal">
-
- <div class="modal-box">
-
-  <div class="modal-head">
-   <h3 id="modalTitle">Add Record</h3>
-
-   <button class="close"
-           onclick="closeModal()">×</button>
-  </div>
-
-  <form id="recordForm"
-        onsubmit="saveRecord(event)">
-
-   <div class="form-grid"
-        id="formFields">
-   </div>
-
-   <div style="display:flex;gap:8px;margin-top:18px">
-    <button type="button"
-            class="btn btn-gray"
-            onclick="closeModal()">
-     Cancel
-    </button>
-
-    <button type="submit"
-            class="btn btn-primary"
-            id="saveBtn">
-     💾 Save
-    </button>
-   </div>
-
-  </form>
-
- </div>
-</div>
-
-<script>
-
-/* =========================================================
-   DISHARI ACADEMY SUPABASE CONFIG
-   ========================================================= */
+The website must work directly on GitHub Pages.
+
+No:
+React
+Node.js
+npm
+Build tools
+PHP
+Python
+
+==================================================
+SUPABASE CONFIGURATION
+==================================================
+
+Use this Supabase Project URL:
 
 const SUPABASE_URL =
  "https://huegvliiwivgdbkfgxq.supabase.co";
 
-/*
- IMPORTANT:
- Paste your FULL sb_publishable_... key here.
- NEVER paste sb_secret_... or service_role here.
-*/
+Use this exact placeholder for the browser-safe Publishable Key:
+
 const SUPABASE_KEY =
- "const SUPABASE_KEY = "sb_publishable_আপনার_কপি_করা_key";";
+ "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
+
+IMPORTANT:
+
+The user will manually replace:
+
+PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE
+
+with the real:
+
+sb_publishable_...
+
+key.
+
+NEVER use:
+sb_secret_
+service_role
+database password
+database connection string
+
+NEVER generate broken code such as:
+
+const SUPABASE_KEY =
+"const SUPABASE_KEY = "sb_publishable_xxx";";
+
+The correct syntax must be:
+
+const SUPABASE_KEY =
+ "sb_publishable_xxxxxxxxxxxxxxxxx";
+
+Initialize Supabase with:
 
 const supabaseClient =
- window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY,
-  {
-   auth:{
-    persistSession:true,
-    autoRefreshToken:true,
-    detectSessionInUrl:true
-   }
-  }
-);
-
-
-/* =========================================================
-   STATE
-   ========================================================= */
-
-let currentTable = "students";
-let currentRows = [];
-let editingId = null;
-let currentProfile = null;
-
-
-/* =========================================================
-   TABLE CONFIGURATION
-   ========================================================= */
-
-const configs = {
-
- students:{
-  title:"Students",
-  bn:"ছাত্র-ছাত্রী",
-  description:"Manage student information",
-  fields:[
-   ["admission_no","Admission No","text"],
-   ["name","Student Name","text",true],
-   ["class_name","Class","text",true],
-   ["section","Section","text"],
-   ["gender","Gender","select",["Male","Female","Other"]],
-   ["dob","Date of Birth","date"],
-   ["guardian_name","Guardian Name","text"],
-   ["phone","Guardian Phone","text"],
-   ["address","Address","textarea"],
-   ["admission_date","Admission Date","date"],
-   ["status","Status","select",["Active","Inactive","Passed","Left"]]
-  ]
- },
-
- teachers:{
-  title:"Teachers",
-  bn:"শিক্ষক",
-  description:"Manage teacher information",
-  fields:[
-   ["employee_id","Employee ID","text"],
-   ["name","Teacher Name","text",true],
-   ["subject","Subject","text"],
-   ["phone","Phone","text"],
-   ["email","Email","email"],
-   ["joining_date","Joining Date","date"],
-   ["salary","Monthly Salary","number"],
-   ["status","Status","select",["Active","Inactive"]]
-  ]
- },
-
- attendance:{
-  title:"Attendance",
-  bn:"উপস্থিতি",
-  description:"Manage student attendance",
-  fields:[
-   ["student_id","Student ID","text",true],
-   ["attendance_date","Date","date",true],
-   ["status","Status","select",["Present","Absent","Late","Leave"],true],
-   ["remarks","Remarks","textarea"]
-  ]
- },
-
- fees:{
-  title:"Fees",
-  bn:"ফি",
-  description:"Manage student fee payments",
-  fields:[
-   ["student_id","Student ID","text",true],
-   ["fee_month","Fee Month","text",true],
-   ["amount","Total Amount","number"],
-   ["paid_amount","Paid Amount","number",true],
-   ["payment_date","Payment Date","date"],
-   ["payment_method","Payment Method","select",["Cash","UPI","Bank","Other"]],
-   ["status","Status","select",["Paid","Partial","Due"]],
-   ["receipt_no","Receipt No","text"]
-  ]
- },
-
- exams:{
-  title:"Exams",
-  bn:"পরীক্ষা",
-  description:"Manage examinations",
-  fields:[
-   ["exam_name","Exam Name","text",true],
-   ["class_name","Class","text",true],
-   ["exam_date","Exam Date","date"],
-   ["description","Description","textarea"]
-  ]
- },
-
- results:{
-  title:"Results",
-  bn:"ফলাফল",
-  description:"Manage examination results",
-  fields:[
-   ["student_id","Student ID","text",true],
-   ["exam_id","Exam ID","text",true],
-   ["subject","Subject","text",true],
-   ["marks","Marks","number",true],
-   ["total_marks","Total Marks","number"],
-   ["grade","Grade","text"],
-   ["remarks","Remarks","textarea"]
-  ]
- },
-
- admissions:{
-  title:"Admissions",
-  bn:"ভর্তি",
-  description:"Manage admission applications",
-  fields:[
-   ["applicant_name","Applicant Name","text",true],
-   ["class_name","Class","text",true],
-   ["guardian_name","Guardian Name","text"],
-   ["phone","Phone","text",true],
-   ["address","Address","textarea"],
-   ["application_date","Application Date","date"],
-   ["status","Status","select",["Pending","Approved","Rejected","Enrolled"]]
-  ]
- },
-
- notices:{
-  title:"Notices",
-  bn:"নোটিশ",
-  description:"Manage school notices",
-  fields:[
-   ["title","Notice Title","text",true],
-   ["content","Notice Content","textarea",true],
-   ["publish_date","Publish Date","date"],
-   ["status","Status","select",["Published","Draft"]]
-  ]
- },
-
- gallery:{
-  title:"Gallery",
-  bn:"গ্যালারি",
-  description:"Manage gallery images",
-  fields:[
-   ["title","Image Title","text",true],
-   ["image_url","Image URL","url",true],
-   ["description","Description","textarea"]
-  ]
- },
-
- salary_payments:{
-  title:"Teacher Salary",
-  bn:"শিক্ষক বেতন",
-  description:"Manage teacher salary payments",
-  fields:[
-   ["teacher_id","Teacher ID","text",true],
-   ["payment_month","Payment Month","text",true],
-   ["amount","Amount","number",true],
-   ["payment_date","Payment Date","date"],
-   ["payment_method","Payment Method","select",["Cash","Bank","UPI","Other"]],
-   ["status","Status","select",["Paid","Pending"]]
-  ]
- }
-
-};
-
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
-
-function showLoading(show=true){
- document.getElementById("loading")
-  .classList.toggle("show",show);
-}
-
-function showAlert(message,type="success"){
- const el=document.getElementById("appAlert");
- el.textContent=message;
- el.className="alert show "+type;
-
- setTimeout(()=>{
-  el.className="alert";
- },4000);
-}
-
-function showLoginAlert(message,type="error"){
- const el=document.getElementById("loginAlert");
- el.textContent=message;
- el.className="alert show "+type;
-}
-
-function escapeHtml(value){
- if(value===null || value===undefined) return "";
- return String(value)
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
-}
-
-function formatValue(value){
- if(value===null || value===undefined) return "";
- if(typeof value==="boolean") return value ? "Yes":"No";
- return String(value);
-}
-
-function getDisplayName(){
- return currentProfile?.full_name ||
-        currentProfile?.email ||
-        "Admin";
-}
-
-
-/* =========================================================
-   AUTH
-   ========================================================= */
-
-async function login(){
-
- const email=
-  document.getElementById("loginEmail").value.trim();
-
- const password=
-  document.getElementById("loginPassword").value;
-
- if(!email || !password){
-  showLoginAlert("Email এবং password দিন।");
-  return;
- }
-
- showLoading(true);
-
- const {data,error}=
-  await supabaseClient.auth.signInWithPassword({
-   email,
-   password
-  });
-
- if(error){
-  showLoading(false);
-  showLoginAlert(error.message);
-  return;
- }
-
- await loadApp(data.user);
-
- showLoading(false);
-}
-
-
-async function loadApp(user){
-
- const {data:profile,error}=
-  await supabaseClient
-   .from("profiles")
-   .select("*")
-   .eq("user_id",user.id)
-   .single();
-
- if(error || !profile){
-
-  await supabaseClient.auth.signOut();
-
-  document.getElementById("loginPage")
-   .classList.remove("hidden");
-
-  showLoginAlert(
-   "আপনার profile পাওয়া যায়নি। Supabase profiles table-এ user-এর role ঠিক আছে কিনা দেখুন।"
-  );
-
-  return;
- }
-
- if(!["admin","staff"].includes(profile.role)){
-
-  await supabaseClient.auth.signOut();
-
-  showLoginAlert(
-   "এই account-এর Management System access নেই।"
-  );
-
-  return;
- }
-
- currentProfile={
-  ...profile,
-  email:user.email
- };
-
- document.getElementById("loginPage")
-  .classList.add("hidden");
-
- document.getElementById("app")
-  .classList.remove("hidden");
-
- document.getElementById("userName")
-  .textContent=getDisplayName();
-
- document.getElementById("userRole")
-  .textContent=profile.role;
-
- document.getElementById("avatar")
-  .textContent=
-   getDisplayName().charAt(0).toUpperCase();
-
- document.getElementById("settingsEmail")
-  .textContent=user.email || "";
-
- document.getElementById("settingsName")
-  .textContent=profile.full_name || "";
-
- document.getElementById("settingsRole")
-  .textContent=profile.role;
-
- refreshDashboard();
-}
-
-
-async function logout(){
-
- await supabaseClient.auth.signOut();
-
- document.getElementById("app")
-  .classList.add("hidden");
-
- document.getElementById("loginPage")
-  .classList.remove("hidden");
-
- document.getElementById("loginPassword")
-  .value="";
-
- showLoginAlert("আপনি logout করেছেন।","success");
-}
-
-
-/* =========================================================
-   SESSION CHECK
-   ========================================================= */
-
-async function checkSession(){
-
- showLoading(true);
-
- const {data:{session}}=
-  await supabaseClient.auth.getSession();
-
- if(session?.user){
-  await loadApp(session.user);
- }
-
- showLoading(false);
-}
-
-supabaseClient.auth.onAuthStateChange(
- async(event,session)=>{
-
-  if(event==="SIGNED_OUT"){
-   document.getElementById("app")
-    .classList.add("hidden");
-
-   document.getElementById("loginPage")
-    .classList.remove("hidden");
+window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY,
+ {
+  auth:{
+   persistSession:true,
+   autoRefreshToken:true,
+   detectSessionInUrl:true
   }
  }
 );
 
+==================================================
+AUTHENTICATION
+==================================================
+
+Create a professional login page.
+
+Fields:
+
+Admin Email
+Password
+
+Login using:
+
+supabaseClient.auth.signInWithPassword({
+ email,
+ password
+})
+
+After successful login:
+
+1. Get authenticated user.
+2. Read profile from `profiles`.
+3. Find profile using `user_id`.
+4. Check `role`.
+5. Allow only:
+   admin
+   staff
 
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+If role is not admin or staff:
+- Sign out
+- Show unauthorized message
 
-function showPage(page,button){
+On page load:
+- Check existing session
+- If session exists, open dashboard
+- Otherwise show login page
 
- document
-  .querySelectorAll(
-   '[id^="page-"]'
-  )
-  .forEach(x=>x.classList.add("hidden"));
+Use:
+
+supabaseClient.auth.signOut()
 
- document.getElementById(
-  "page-"+page
- )?.classList.remove("hidden");
+for logout.
+
+Do not store passwords.
+Do not create Auth users from frontend.
+
+==================================================
+DESIGN
+==================================================
 
- document
-  .querySelectorAll(".nav button")
-  .forEach(x=>x.classList.remove("active"));
+Create a premium modern school dashboard.
 
- if(button) button.classList.add("active");
+Theme:
+Blue
+White
+Dark navy
+Light gray
+
+Features:
+
+Responsive
+Mobile friendly
+Tablet friendly
+Desktop friendly
+Modern cards
+Rounded corners
+Professional tables
+Sidebar
+Top navigation
+Modal forms
+Loading spinner
+Success alerts
+Error alerts
+Hover effects
+Smooth UI
+
+Use Bengali + English labels.
+
+==================================================
+SIDEBAR
+==================================================
+
+Create:
+
+🏠 Dashboard
+👨‍🎓 Students
+👨‍🏫 Teachers
+📅 Attendance
+💰 Fees
+📝 Exams
+🏆 Results
+📥 Admissions
+📢 Notices
+🖼️ Gallery
+💳 Teacher Salary
+📊 Reports
+⚙️ Settings
+🚪 Logout
+
+On mobile:
+- Sidebar must slide from left.
+- Hamburger button must open/close sidebar.
 
- const titles={
-  dashboard:"Dashboard",
-  reports:"Reports",
-  settings:"Settings"
- };
+==================================================
+DASHBOARD
+==================================================
 
- if(configs[page]){
+Dashboard must use REAL Supabase data.
 
-  currentTable=page;
+Show:
 
-  document.getElementById("page-data")
-   .classList.remove("hidden");
+Total Students
+Total Teachers
+Admissions
+Fee Records
 
-  document.getElementById("dataTitle")
-   .textContent=configs[page].title;
+Do NOT use fake numbers.
 
-  document.getElementById("dataDescription")
-   .textContent=configs[page].description;
+Load counts from:
 
-  document.getElementById("topTitle")
-   .textContent=configs[page].title;
+students
+teachers
+admissions
+fees
 
-  loadTable(page);
+Also show:
 
- }else{
+Recent Admissions
+Quick Actions
+School Information
 
-  document.getElementById("topTitle")
-   .textContent=titles[page] || page;
- }
+Quick Actions:
 
- if(page==="dashboard"){
-  refreshDashboard();
- }
+Add Student
+Add Teacher
+Add Fee
+Attendance
+Add Exam
+Add Notice
 
- if(page==="reports"){
-  // nothing
- }
+==================================================
+STUDENTS
+==================================================
 
- toggleSidebar(false);
-}
+Use table:
 
+students
 
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
+Fields:
 
-function toggleSidebar(force){
+id
+admission_no
+name
+class_name
+section
+gender
+dob
+guardian_name
+phone
+address
+admission_date
+status
 
- const sidebar=document.getElementById("sidebar");
+Create:
 
- if(force===false){
-  sidebar.classList.remove("open");
-  return;
- }
+Add Student
+Edit Student
+Delete Student
+Search
+Refresh
+Export CSV
 
- sidebar.classList.toggle("open");
-}
+Status:
 
+Active
+Inactive
+Passed
+Left
 
-/* =========================================================
-   LOAD TABLE
-   ========================================================= */
+==================================================
+TEACHERS
+==================================================
 
-async function loadTable(table){
+Use table:
 
- currentTable=table;
+teachers
 
- showLoading(true);
+Fields:
 
- const {data,error}=
-  await supabaseClient
-   .from(table)
-   .select("*")
-   .order("created_at",{ascending:false});
+id
+employee_id
+name
+subject
+phone
+email
+joining_date
+salary
+status
 
- showLoading(false);
+Create:
 
- if(error){
+Add Teacher
+Edit Teacher
+Delete Teacher
+Search
+Refresh
+Export CSV
 
-  /*
-   Some tables may not have created_at.
-   Retry without order.
-  */
+==================================================
+ATTENDANCE
+==================================================
 
-  const retry=
-   await supabaseClient
-    .from(table)
-    .select("*");
+Use table:
 
-  if(retry.error){
+attendance
 
-   showAlert(
-    table+" load error: "+retry.error.message,
-    "error"
-   );
+Fields:
 
-   return;
-  }
+id
+student_id
+attendance_date
+status
+remarks
 
-  currentRows=retry.data || [];
+Status:
 
- }else{
-  currentRows=data || [];
- }
+Present
+Absent
+Late
+Leave
 
- renderTable(currentRows);
-}
+Create:
 
+Add Attendance
+Edit Attendance
+Delete Attendance
+Search
+Refresh
+Export CSV
 
-/* =========================================================
-   RENDER TABLE
-   ========================================================= */
+==================================================
+FEES
+==================================================
 
-function renderTable(rows){
+Use table:
 
- const table=document.getElementById("dataTable");
- const thead=table.querySelector("thead");
- const tbody=table.querySelector("tbody");
+fees
 
- if(!rows.length){
+Fields:
 
-  thead.innerHTML="<tr><th>Data</th><th>Action</th></tr>";
+id
+student_id
+fee_month
+amount
+paid_amount
+payment_date
+payment_method
+status
+receipt_no
 
-  tbody.innerHTML=`
-   <tr>
-    <td colspan="2">
-     No records found.
-    </td>
-   </tr>`;
+Payment methods:
 
-  return;
- }
+Cash
+UPI
+Bank
+Other
 
- let keys=Object.keys(rows[0]);
+Status:
 
- /*
-  Hide internal fields from table display.
- */
- keys=keys.filter(k=>
-  !["id","created_at","updated_at"].includes(k)
- );
+Paid
+Partial
+Due
 
- thead.innerHTML=`
-  <tr>
-   ${keys.map(k=>`<th>${escapeHtml(k)}</th>`).join("")}
-   <th>Action</th>
-  </tr>
- `;
+Create:
 
- tbody.innerHTML=rows.map(row=>{
+Add Fee
+Edit Fee
+Delete Fee
+Search
+Refresh
+Export CSV
 
-  const id=row.id;
+==================================================
+EXAMS
+==================================================
 
-  return `
-   <tr>
-    ${keys.map(k=>`
-     <td>
-      ${escapeHtml(formatValue(row[k]))}
-     </td>
-    `).join("")}
+Use table:
 
-    <td>
-     <div class="actions">
+exams
 
-      <button
-       class="btn btn-primary"
-       onclick='editRecord(${JSON.stringify(row).replaceAll("'","&#39;")})'>
-       Edit
-      </button>
+Fields:
 
-      <button
-       class="btn btn-red"
-       onclick="deleteRecord('${escapeHtml(id)}')">
-       Delete
-      </button>
+id
+exam_name
+class_name
+exam_date
+description
 
-     </div>
-    </td>
+Create:
 
-   </tr>
-  `;
+Add Exam
+Edit Exam
+Delete Exam
+Search
+Refresh
+Export CSV
 
- }).join("");
-}
+==================================================
+RESULTS
+==================================================
 
+Use table:
 
-/* =========================================================
-   SEARCH
-   ========================================================= */
+results
 
-function filterTable(){
+Fields:
 
- const q=
-  document.getElementById("searchBox")
-   .value.toLowerCase();
+id
+student_id
+exam_id
+subject
+marks
+total_marks
+grade
+remarks
 
- if(!q){
-  renderTable(currentRows);
-  return;
- }
+Create:
 
- const filtered=currentRows.filter(row=>
-  Object.values(row)
-   .join(" ")
-   .toLowerCase()
-   .includes(q)
- );
+Add Result
+Edit Result
+Delete Result
+Search
+Refresh
+Export CSV
 
- renderTable(filtered);
-}
+==================================================
+ADMISSIONS
+==================================================
 
+Use table:
 
-/* =========================================================
-   FORM
-   ========================================================= */
+admissions
 
-function openAdd(table){
+Fields:
 
- currentTable=table;
- editingId=null;
+id
+applicant_name
+class_name
+guardian_name
+phone
+address
+application_date
+status
 
- const cfg=configs[table];
+Status:
 
- if(!cfg){
-  showAlert("Configuration not found.","error");
-  return;
- }
+Pending
+Approved
+Rejected
+Enrolled
 
- document.getElementById("modalTitle")
-  .textContent="Add "+cfg.title;
+Create:
 
- document.getElementById("saveBtn")
-  .textContent="💾 Save";
+Add Admission
+Edit Admission
+Delete Admission
+Search
+Refresh
+Export CSV
 
- buildForm();
+Dashboard must show recent admissions from the database.
 
- document.getElementById("recordModal")
-  .classList.add("show");
-}
+==================================================
+NOTICES
+==================================================
 
+Use table:
 
-function buildForm(row={}){
+notices
 
- const cfg=configs[currentTable];
+Fields:
 
- const html=cfg.fields.map(field=>{
+id
+title
+content
+publish_date
+status
 
-  const [
-   name,
-   label,
-   type,
-   options,
-   required
-  ]=field;
+Status:
 
-  const value=row[name] ?? "";
+Published
+Draft
 
-  if(type==="textarea"){
+Create:
 
-   return `
-    <div class="form-group full-col">
-     <label>${label}</label>
-     <textarea
-      name="${name}"
-      rows="4"
-      ${required===true?"required":""}
-     >${escapeHtml(value)}</textarea>
-    </div>
-   `;
-  }
+Add Notice
+Edit Notice
+Delete Notice
+Search
+Refresh
+Export CSV
 
-  if(type==="select"){
+==================================================
+GALLERY
+==================================================
 
-   return `
-    <div class="form-group">
-     <label>${label}</label>
-     <select
-      name="${name}"
-      ${required===true?"required":""}
-     >
-      <option value="">Select</option>
+Use table:
 
-      ${options.map(o=>`
-       <option
-        value="${escapeHtml(o)}"
-        ${String(value)===String(o)?"selected":""}
-       >
-        ${escapeHtml(o)}
-       </option>
-      `).join("")}
+gallery
 
-     </select>
-    </div>
-   `;
-  }
+Fields:
 
-  return `
-   <div class="form-group">
-    <label>${label}</label>
+id
+title
+image_url
+description
 
-    <input
-     type="${type}"
-     name="${name}"
-     value="${escapeHtml(value)}"
-     ${required===true?"required":""}
-    >
-   </div>
-  `;
+Create:
 
- }).join("");
+Add Gallery
+Edit Gallery
+Delete Gallery
+Search
+Refresh
+Export CSV
 
- document.getElementById("formFields")
-  .innerHTML=html;
-}
+For now use image URL.
+Do not create fake upload functionality.
 
+==================================================
+TEACHER SALARY
+==================================================
 
-/* =========================================================
-   EDIT
-   ========================================================= */
+Use table:
 
-function editRecord(row){
+salary_payments
 
- editingId=row.id;
+Fields:
 
- const cfg=configs[currentTable];
+id
+teacher_id
+payment_month
+amount
+payment_date
+payment_method
+status
 
- document.getElementById("modalTitle")
-  .textContent="Edit "+cfg.title;
+Create:
 
- document.getElementById("saveBtn")
-  .textContent="💾 Update";
+Add Salary Payment
+Edit Salary Payment
+Delete Salary Payment
+Search
+Refresh
+Export CSV
 
- buildForm(row);
+==================================================
+REPORTS
+==================================================
 
- document.getElementById("recordModal")
-  .classList.add("show");
-}
+Create Reports page with:
 
+Students CSV
+Teachers CSV
+Attendance CSV
+Fees CSV
+Exams CSV
+Results CSV
+Admissions CSV
+Salary CSV
 
-/* =========================================================
-   SAVE
-   ========================================================= */
+Export REAL Supabase records.
 
-async function saveRecord(event){
+CSV must work correctly on Android Chrome.
 
- event.preventDefault();
+==================================================
+SETTINGS
+==================================================
 
- const form=new FormData(
-  document.getElementById("recordForm")
- );
+Show:
 
- const payload={};
+Logged-in Email
+Full Name
+Role
 
- for(const [key,value] of form.entries()){
+Show:
 
-  /*
-   Convert empty string to null
-  */
-  payload[key]=
-   value.trim()==="" ? null : value.trim();
- }
+Admin
+or
+Staff
 
- showLoading(true);
+Include Logout button.
 
- let result;
+==================================================
+CRUD
+==================================================
 
- if(editingId){
+Every management section must support:
 
-  result=
-   await supabaseClient
-    .from(currentTable)
-    .update(payload)
-    .eq("id",editingId);
+CREATE
+READ
+UPDATE
+DELETE
 
- }else{
+Use Supabase:
 
-  result=
-   await supabaseClient
-    .from(currentTable)
-    .insert(payload);
- }
+.insert()
+.select()
+.update()
+.delete()
 
- showLoading(false);
+After successful operation:
 
- if(result.error){
+Close modal
+Show success message
+Reload table
+Refresh dashboard where necessary
 
-  showAlert(
-   result.error.message,
-   "error"
-  );
+On error:
 
-  return;
- }
+Show readable error message.
 
- closeModal();
+==================================================
+SEARCH
+==================================================
 
- showAlert(
-  editingId ?
-   "Record updated successfully." :
-   "Record added successfully.",
-  "success"
- );
+Every table must have a search box.
 
- loadTable(currentTable);
- refreshDashboard();
-}
+Search currently loaded records.
 
+==================================================
+TABLES
+==================================================
 
-/* =========================================================
-   DELETE
-   ========================================================= */
+Tables must be horizontally scrollable on mobile.
 
-async function deleteRecord(id){
+Show relevant fields and:
 
- if(!confirm(
-  "এই record permanently delete করতে চান?"
- )) return;
+✏️ Edit
+🗑️ Delete
 
- showLoading(true);
+Before deleting:
 
- const {error}=
-  await supabaseClient
-   .from(currentTable)
-   .delete()
-   .eq("id",id);
+"Are you sure you want to delete this record?"
 
- showLoading(false);
+==================================================
+MODAL
+==================================================
 
- if(error){
+Use reusable modal form.
 
-  showAlert(
-   "Delete failed: "+error.message,
-   "error"
-  );
+Generate form fields dynamically from configuration.
 
-  return;
- }
+Support:
 
- showAlert(
-  "Record deleted successfully.",
-  "success"
- );
+text
+email
+number
+date
+textarea
+select
 
- loadTable(currentTable);
- refreshDashboard();
-}
+Required fields must use required validation.
 
+==================================================
+LOADING
+==================================================
 
-/* =========================================================
-   MODAL
-   ========================================================= */
+Create full-screen loading overlay.
 
-function closeModal(){
+Show it during:
 
- document.getElementById("recordModal")
-  .classList.remove("show");
+Login
+Dashboard loading
+Table loading
+Save
+Update
+Delete
 
- document.getElementById("recordForm")
-  .reset();
+==================================================
+ERROR HANDLING
+==================================================
 
- editingId=null;
-}
+Handle:
 
+Authentication errors
+RLS errors
+Permission errors
+Network errors
+Missing table
+Missing column
+Invalid data
 
-/* =========================================================
-   DASHBOARD COUNTS
-   ========================================================= */
+Never leave the page blank.
 
-async function getCount(table){
+If key is still placeholder, show:
 
- const {count,error}=
-  await supabaseClient
-   .from(table)
-   .select("*",{count:"exact",head:true});
+"Supabase Publishable Key is not configured."
 
- if(error) return 0;
+==================================================
+DATABASE COMPATIBILITY
+==================================================
 
- return count || 0;
-}
+Some tables may or may not have `created_at`.
 
+When loading data:
 
-async function refreshDashboard(){
+First try:
 
- const [
-  students,
-  teachers,
-  admissions,
-  fees
- ]=await Promise.all([
-  getCount("students"),
-  getCount("teachers"),
-  getCount("admissions"),
-  getCount("fees")
- ]);
+.order("created_at",{ascending:false})
 
- document.getElementById("statStudents")
-  .textContent=students;
+If that fails because `created_at` does not exist,
+retry the query without ordering.
 
- document.getElementById("statTeachers")
-  .textContent=teachers;
+Do not crash the application.
 
- document.getElementById("statAdmissions")
-  .textContent=admissions;
+==================================================
+PROFILE
+==================================================
 
- document.getElementById("statFees")
-  .textContent=fees;
+Use:
 
- loadRecentAdmissions();
-}
+profiles
 
+Fields:
 
-async function loadRecentAdmissions(){
+id
+user_id
+full_name
+role
 
- const {data,error}=
-  await supabaseClient
-   .from("admissions")
-   .select("*")
-   .limit(5);
+Get current profile using authenticated user's ID.
 
- const tbody=
-  document.getElementById("recentAdmissions");
+Allowed roles:
 
- if(error){
+admin
+staff
 
-  tbody.innerHTML=`
-   <tr>
-    <td colspan="5">
-     ${escapeHtml(error.message)}
-    </td>
-   </tr>`;
+==================================================
+FUNCTIONS
+==================================================
 
-  return;
- }
+Create reusable functions:
 
- if(!data?.length){
+login()
+logout()
+checkSession()
+loadProfile()
+loadDashboard()
+refreshDashboard()
+showPage()
+toggleSidebar()
+loadTable()
+openAdd()
+openEdit()
+saveRecord()
+deleteRecord()
+closeModal()
+filterTable()
+exportCSV()
+downloadReport()
+showAlert()
+showLoading()
 
-  tbody.innerHTML=`
-   <tr>
-    <td colspan="5">
-     No admission records yet.
-    </td>
-   </tr>`;
+==================================================
+SCHOOL INFORMATION
+==================================================
 
-  return;
- }
+Show:
 
- tbody.innerHTML=data.map(x=>`
-  <tr>
-   <td>${escapeHtml(
-    x.applicant_name || x.name || ""
-   )}</td>
+দিশারী একাডেমী
 
-   <td>${escapeHtml(
-    x.class_name || ""
-   )}</td>
+Gurail Hatkhola, Tapan
 
-   <td>${escapeHtml(
-    x.guardian_name || ""
-   )}</td>
+Dakshin Dinajpur, West Bengal
 
-   <td>${escapeHtml(
-    x.phone || ""
-   )}</td>
+Established: 2020
 
-   <td>
-    <span class="badge">
-     ${escapeHtml(x.status || "Pending")}
-    </span>
-   </td>
-  </tr>
- `).join("");
-}
+Residential Educational Institution
 
+Do NOT invent:
 
-/* =========================================================
-   CSV EXPORT
-   ========================================================= */
+Board affiliation
+UDISE number
+Principal name
+Teacher names
+Student numbers
+School results
+Fees
+Accreditation
 
-function csvEscape(value){
+==================================================
+LOGO
+==================================================
 
- if(value===null || value===undefined)
-  return "";
+Use:
 
- let str=String(value);
+logo.jpg
 
- if(
-  str.includes(",") ||
-  str.includes('"') ||
-  str.includes("\n")
- ){
-  str='"'+str.replaceAll('"','""')+'"';
- }
+If logo does not exist, hide it gracefully.
 
- return str;
-}
+==================================================
+IMPORTANT CODE QUALITY
+==================================================
 
+The final code must have:
 
-function downloadCSV(rows,filename){
+- Complete HTML
+- Complete CSS
+- Complete JavaScript
+- No missing closing tags
+- No broken quotation marks
+- No duplicate `const SUPABASE_KEY`
+- No duplicate JavaScript declarations
+- No syntax errors
+- No fake database values
+- No incomplete functions
+- No TODO placeholders for essential functionality
 
- if(!rows.length){
-  alert("No data available.");
-  return;
- }
+MOST IMPORTANT:
 
- const keys=Object.keys(rows[0]);
+The final code MUST contain exactly this configuration structure:
 
- let csv=
-  keys.map(csvEscape).join(",")+"\n";
+const SUPABASE_URL =
+ "https://huegvliiwivgdbkfgxq.supabase.co";
 
- csv+=rows.map(row=>
-  keys.map(k=>
-   csvEscape(row[k])
-  ).join(",")
- ).join("\n");
+const SUPABASE_KEY =
+ "PASTE_YOUR_SB_PUBLISHABLE_KEY_HERE";
 
- const blob=
-  new Blob(
-   ["\ufeff"+csv],
-   {type:"text/csv;charset=utf-8"}
-  );
+The user will replace only the placeholder with their real `sb_publishable_...` key.
 
- const url=
-  URL.createObjectURL(blob);
+==================================================
+FINAL OUTPUT
+==================================================
 
- const a=document.createElement("a");
+Return ONLY the complete ready-to-use:
 
- a.href=url;
- a.download=filename;
- a.click();
+admin.html
 
- URL.revokeObjectURL(url);
-}
+from:
 
+<!DOCTYPE html>
 
-function exportCSV(){
+to:
 
- downloadCSV(
-  currentRows,
-  currentTable+"-report.csv"
- );
-}
-
-
-async function downloadReport(table){
-
- showLoading(true);
-
- const {data,error}=
-  await supabaseClient
-   .from(table)
-   .select("*");
-
- showLoading(false);
-
- if(error){
-
-  showAlert(
-   error.message,
-   "error"
-  );
-
-  return;
- }
-
- downloadCSV(
-  data || [],
-  table+"-report.csv"
- );
-}
-
-
-/* =========================================================
-   START
-   ========================================================= */
-
-checkSession();
-
-</script>
-
-</body>
 </html>
+
+Do not shorten the code.
+Do not say "remaining code omitted".
+Do not use "...".
+Do not provide demo data.
+Do not provide explanations.

@@ -1,69 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dishari Academy | Admin Dashboard</title>
-<link rel="icon" href="assets/favicon.jpg"><link rel="stylesheet" href="admin.css">
-</head>
-<body>
-<div id="login" class="login-screen">
-  <div class="login-card">
-    <img src="assets/logo.jpg" alt="Dishari Academy">
-    <h1>Dishari Academy</h1><p>School Management System</p>
-    <label>Email<input id="email" value="admin@dishariacademy.local"></label>
-    <label>Password<input id="password" type="password" value="admin123"></label>
-    <button class="btn primary" onclick="login()">Sign in to Admin</button>
-    <small>Demo login: admin@dishariacademy.local / admin123</small>
-    <a href="index.html">← Back to website</a>
-  </div>
-</div>
-<div id="app" class="app hidden">
-  <aside class="sidebar">
-    <div class="side-brand"><img src="assets/logo.jpg"><b>Dishari Academy</b><small>Management System</small></div>
-    <button onclick="show('dashboard')">▦ Dashboard</button>
-    <button onclick="show('students')">👨‍🎓 Students</button>
-    <button onclick="show('teachers')">👩‍🏫 Teachers</button>
-    <button onclick="show('attendance')">✓ Attendance</button>
-    <button onclick="show('fees')">₹ Fees</button>
-    <button onclick="show('exams')">▣ Exams & Results</button>
-    <button onclick="show('admissions')">📝 Admissions</button>
-    <button onclick="show('notices')">🔔 Notices</button>
-    <button onclick="show('gallery')">▧ Gallery</button>
-    <button onclick="show('settings')">⚙ Settings</button>
-    <button class="logout" onclick="logout()">↪ Logout</button>
-  </aside>
-  <main class="main">
-    <header class="admin-top"><button class="mobile-side" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button><div><b id="pageTitle">Dashboard</b><span>School Management System</span></div><div class="admin-user">Administrator</div></header>
-
-    <section id="dashboard" class="view active">
-      <div class="welcome"><div><span>ADMIN DASHBOARD</span><h1>Good day, Administrator.</h1><p>Manage students, teachers, attendance, fees, exams, notices and admissions from one place.</p></div><a href="index.html" target="_blank">View Website ↗</a></div>
-      <div class="kpis"><div><span>Students</span><b id="kStudents">120</b><small>Demo records</small></div><div><span>Teachers</span><b id="kTeachers">18</b><small>Demo records</small></div><div><span>Fee Due</span><b>₹48,500</b><small>This month</small></div><div><span>Applications</span><b>12</b><small>Pending review</small></div></div>
-      <div class="grid2"><div class="panel"><h2>Recent activity</h2><div class="activity"><p><b>New admission application</b><span>Class VII · 20 min ago</span></p><p><b>Attendance updated</b><span>Class V · Today</span></p><p><b>Notice published</b><span>Academic information · Today</span></p></div></div><div class="panel"><h2>Quick actions</h2><div class="quick-actions"><button onclick="show('students')">+ Add Student</button><button onclick="show('teachers')">+ Add Teacher</button><button onclick="show('notices')">+ Publish Notice</button><button onclick="show('admissions')">Review Admissions</button></div></div></div>
-    </section>
-
-    <section id="students" class="view"><div class="section-title"><div><span>STUDENT MANAGEMENT</span><h1>Students</h1></div><button class="btn primary" onclick="openModal('student')">+ Add Student</button></div><div class="panel"><input class="search" placeholder="Search student..." oninput="filterTable('studentTable',this.value)"><table id="studentTable"><thead><tr><th>Admission No.</th><th>Student</th><th>Class</th><th>Parent</th><th>Phone</th><th>Status</th></tr></thead><tbody></tbody></table></div></section>
-
-    <section id="teachers" class="view"><div class="section-title"><div><span>STAFF MANAGEMENT</span><h1>Teachers & Staff</h1></div><button class="btn primary" onclick="openModal('teacher')">+ Add Teacher</button></div><div class="panel"><table id="teacherTable"><thead><tr><th>ID</th><th>Name</th><th>Subject</th><th>Class</th><th>Mobile</th><th>Status</th></tr></thead><tbody></tbody></table></div></section>
-
-    <section id="attendance" class="view"><div class="section-title"><div><span>DAILY RECORD</span><h1>Attendance</h1></div><input type="date" id="attDate"></div><div class="panel"><div class="attendance-tools"><select><option>Class V</option><option>Class VI</option><option>Class VII</option><option>Class VIII</option><option>Class IX</option></select><button class="btn primary" onclick="saveAttendance()">Save Attendance</button></div><table><thead><tr><th>Roll</th><th>Student</th><th>Present</th><th>Absent</th><th>Leave</th></tr></thead><tbody id="attendanceBody"></tbody></table></div></section>
-
-    <section id="fees" class="view"><div class="section-title"><div><span>ACCOUNTS</span><h1>Fees Management</h1></div><button class="btn primary" onclick="openModal('fee')">+ Record Payment</button></div><div class="kpis"><div><span>Collected</span><b>₹1,84,500</b><small>This month</small></div><div><span>Outstanding</span><b>₹48,500</b><small>Across demo records</small></div><div><span>Receipts</span><b>86</b><small>This month</small></div><div><span>Due students</span><b>31</b><small>Need follow-up</small></div></div><div class="panel"><table><thead><tr><th>Receipt</th><th>Student</th><th>Class</th><th>Amount</th><th>Date</th><th>Method</th></tr></thead><tbody><tr><td>DA-2026-0086</td><td>Demo Student</td><td>VII</td><td>₹1,200</td><td>06 Oct 2026</td><td>Cash</td></tr><tr><td>DA-2026-0085</td><td>Demo Student 2</td><td>V</td><td>₹1,500</td><td>05 Oct 2026</td><td>UPI</td></tr></tbody></table></div></section>
-
-    <section id="exams" class="view"><div class="section-title"><div><span>ACADEMIC ASSESSMENT</span><h1>Exams & Results</h1></div><button class="btn primary" onclick="openModal('result')">+ Enter Marks</button></div><div class="panel"><h2>Result overview</h2><table><thead><tr><th>Student</th><th>Class</th><th>English</th><th>Math</th><th>Science</th><th>Total</th><th>Grade</th></tr></thead><tbody><tr><td>Demo Student</td><td>VII</td><td>82</td><td>91</td><td>88</td><td>261/300</td><td>A+</td></tr><tr><td>Demo Student 2</td><td>V</td><td>76</td><td>81</td><td>79</td><td>236/300</td><td>A</td></tr></tbody></table></div></section>
-
-    <section id="admissions" class="view"><div class="section-title"><div><span>ADMISSION OFFICE</span><h1>Applications</h1></div><button class="btn primary" onclick="openModal('admission')">+ New Application</button></div><div class="panel"><table><thead><tr><th>Application</th><th>Applicant</th><th>Class</th><th>Parent</th><th>Phone</th><th>Status</th></tr></thead><tbody id="admissionTable"></tbody></table></div></section>
-
-    <section id="notices" class="view"><div class="section-title"><div><span>COMMUNICATION</span><h1>Notice Board</h1></div><button class="btn primary" onclick="openModal('notice')">+ Publish Notice</button></div><div class="panel"><div id="adminNoticeList"></div></div></section>
-
-    <section id="gallery" class="view"><div class="section-title"><div><span>MEDIA</span><h1>Gallery</h1></div><label class="upload btn primary">+ Add Photo<input type="file" accept="image/*" onchange="addPhoto(event)"></label></div><div class="admin-gallery">
-      <img src="assets/school-signboard.jpg"><img src="assets/admission-poster.jpg"><img src="assets/achievement-event.jpg"><img src="assets/students-playground.jpg"><img src="assets/morning-activity.jpg"><img src="assets/teacher-student-group.jpg"><img src="assets/students-group.jpg"><img src="assets/logo.jpg">
-    </div></section>
-
-    <section id="settings" class="view"><div class="section-title"><div><span>WEBSITE CONTROL</span><h1>Settings</h1></div><button class="btn primary" onclick="saveSettings()">Save Changes</button></div><div class="panel formgrid"><label>School Name<input id="schoolName" value="Dishari Academy"></label><label>Established<input value="2020"></label><label>Primary Phone<input id="phone1" value="9609707645"></label><label>Admission Phone<input id="phone2" value="8167038811"></label><label class="full">Address<textarea id="address">Gurail Hatkhola, Tapan, Dakshin Dinajpur, West Bengal</textarea></label><label class="full">About School<textarea>Dishari Academy is an educational institution in Gurail Hatkhola, Tapan. Update this text with the school's approved official description before publishing.</textarea></label></div></section>
-  </main>
-</div>
-
-<div id="modal" class="modal hidden"><div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2 id="modalTitle">Add</h2><form id="modalForm" onsubmit="submitModal(event)"></form></div></div>
-<script src="admin.js"></script>
-</body>
-</html>
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dishari Academy | Admin Dashboard</title><link rel="stylesheet" href="admin.css"></head>
+<body><aside><div class="logo"><img src="assets/logo.jpg"><b>দিশারী একাডেমী</b></div><a class="active">Dashboard</a><a>Students</a><a>Teachers</a><a>Attendance</a><a>Fees</a><a>Exams & Results</a><a>Admissions</a><a>Notices</a><a>Gallery</a><a>Reports</a><a>Settings</a><a href="index.html">← Website</a></aside>
+<main><header><div><small>ADMIN PANEL</small><h1>School Management Dashboard</h1></div><button onclick="alert('এটি একটি front-end demo dashboard। বাস্তব login/database-এর জন্য backend সংযোগ প্রয়োজন।')">Admin Profile</button></header>
+<div class="notice">⚠️ <b>Demo Management Panel:</b> এই dashboard-এর UI প্রস্তুত। GitHub Pages-এ secure real database/login নেই। Supabase/Firebase-এর মতো backend যুক্ত করলে এটিকে পূর্ণ management system করা যাবে।</div>
+<section class="stats"><div><b>248</b><span>Students</span></div><div><b>24</b><span>Teachers</span></div><div><b>91%</b><span>Attendance</span></div><div><b>₹1.24L</b><span>Fees this month</span></div></section>
+<section class="grid"><div class="panel"><h2>Recent Admissions</h2><table><tr><th>Student</th><th>Class</th><th>Status</th></tr><tr><td>Demo Student 01</td><td>VI</td><td>Pending</td></tr><tr><td>Demo Student 02</td><td>III</td><td>Approved</td></tr><tr><td>Demo Student 03</td><td>IX</td><td>Review</td></tr></table></div><div class="panel"><h2>Quick Actions</h2><button>Add Student</button><button>Add Teacher</button><button>New Notice</button><button>Upload Gallery Photo</button><button>Record Fee</button></div></section>
+</main></body></html>

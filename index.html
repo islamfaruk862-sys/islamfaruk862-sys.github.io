@@ -1,98 +1,1023 @@
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<title>দিশারী একাডেমী | Dishari Academy — Official School Website</title>
 
-  <title>
-    Dishari Academy | দিশারী একাডেমী, Tapan, Dakshin Dinajpur
-  </title>
+<meta name="description" content="দিশারী একাডেমী, Gurail Hatkhola, Tapan, Dakshin Dinajpur-এর আবাসিক শিক্ষা প্রতিষ্ঠান। Nursery থেকে Class IX পর্যন্ত শিক্ষা ও 2027 Admission তথ্য।">
 
-  <meta name="description"
-        content="দিশারী একাডেমী (Dishari Academy), Gurail Hatkhola, Tapan, Dakshin Dinajpur-এর আবাসিক শিক্ষা প্রতিষ্ঠান। Nursery থেকে Class IX পর্যন্ত শিক্ষা, ভর্তি, বিদ্যালয়ের কার্যক্রম ও অন্যান্য তথ্য।">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Dishari Academy">
 
-  <meta name="robots"
-        content="index, follow">
+<link rel="canonical" href="https://islamfaruk862-sys.github.io/">
+<link rel="icon" href="logo.jpg">
 
-  <link rel="canonical"
-        href="https://islamfaruk862-sys.github.io/">
+<meta property="og:title" content="দিশারী একাডেমী | Dishari Academy">
+<meta property="og:description" content="শিক্ষার আলোয় আগামীর পথচলা">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://islamfaruk862-sys.github.io/">
+<meta property="og:image" content="https://islamfaruk862-sys.github.io/school-signboard.jpg">
 
-  <link rel="icon"
-        href="logo.jpg">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-  <meta name="theme-color"
-        content="#0b243b">
+html{
+    scroll-behavior:smooth;
+}
 
+body{
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    background:#f7f9fc;
+    color:#18212f;
+    line-height:1.7;
+}
 
-  <!-- Open Graph / Social Sharing -->
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-  <meta property="og:title"
-        content="Dishari Academy | দিশারী একাডেমী">
+.container{
+    width:min(1150px,92%);
+    margin:auto;
+}
 
-  <meta property="og:description"
-        content="দিশারী একাডেমী, Gurail Hatkhola, Tapan, Dakshin Dinajpur-এর আবাসিক শিক্ষা প্রতিষ্ঠান।">
+/* TOP BAR */
+.topbar{
+    background:#10243e;
+    color:#fff;
+    font-size:14px;
+    padding:8px 0;
+}
 
-  <meta property="og:type"
-        content="website">
+.topbar .container{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    flex-wrap:wrap;
+}
 
-  <meta property="og:url"
-        content="https://islamfaruk862-sys.github.io/">
+/* HEADER */
+header{
+    background:#fff;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 15px rgba(0,0,0,.08);
+}
 
-  <meta property="og:image"
-        content="https://islamfaruk862-sys.github.io/logo.jpg">
+.nav{
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
 
-  <meta property="og:site_name"
-        content="Dishari Academy">
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
+.brand img{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    object-fit:cover;
+}
 
-  <!-- Google / Search Engine Information -->
+.brand-text strong{
+    display:block;
+    font-size:20px;
+    color:#12355b;
+}
 
-  <meta name="author"
-        content="Dishari Academy">
+.brand-text span{
+    font-size:12px;
+    color:#666;
+}
 
-  <meta name="language"
-        content="Bangla">
+nav{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
 
+nav a{
+    font-size:14px;
+    font-weight:600;
+    color:#26384d;
+}
 
-  <!-- School / Organization Structured Data -->
+nav a:hover{
+    color:#0d7b68;
+}
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+.admission-btn{
+    background:#0d7b68;
+    color:#fff!important;
+    padding:10px 17px;
+    border-radius:25px;
+}
 
-    "name": "Dishari Academy",
+/* HERO */
+.hero{
+    min-height:590px;
+    display:flex;
+    align-items:center;
+    background:
+    linear-gradient(90deg,rgba(5,24,43,.92),rgba(5,24,43,.48)),
+    url("school-activity.jpg") center/cover no-repeat;
+    color:white;
+}
 
-    "alternateName": "দিশারী একাডেমী",
+.hero-content{
+    max-width:720px;
+    padding:70px 0;
+}
 
-    "url": "https://islamfaruk862-sys.github.io/",
+.badge{
+    display:inline-block;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.35);
+    padding:7px 15px;
+    border-radius:30px;
+    margin-bottom:18px;
+    font-size:14px;
+}
 
-    "logo": "https://islamfaruk862-sys.github.io/logo.jpg",
+.hero h1{
+    font-size:clamp(36px,6vw,66px);
+    line-height:1.12;
+    margin-bottom:20px;
+}
 
-    "image": "https://islamfaruk862-sys.github.io/school-signboard.jpg",
+.hero h1 span{
+    color:#65e0c5;
+}
 
-    "description": "দিশারী একাডেমী, Gurail Hatkhola, Tapan, Dakshin Dinajpur-এর আবাসিক শিক্ষা প্রতিষ্ঠান।",
+.hero p{
+    font-size:18px;
+    max-width:650px;
+    color:#e9f1f7;
+}
 
-    "foundingDate": "2020",
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:28px;
+}
 
-    "telephone": [
-      "+91-9609707645",
-      "+91-8167038811"
-    ],
+.btn{
+    display:inline-block;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:.2s;
+}
 
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Tapan",
-      "addressRegion": "West Bengal",
-      "addressCountry": "IN"
+.btn-primary{
+    background:#0d9b82;
+    color:white;
+}
+
+.btn-light{
+    background:white;
+    color:#16395b;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+/* STATS */
+.stats{
+    background:white;
+    margin-top:-45px;
+    position:relative;
+    z-index:5;
+    border-radius:15px;
+    box-shadow:0 10px 35px rgba(0,0,0,.1);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    overflow:hidden;
+}
+
+.stat{
+    text-align:center;
+    padding:25px 12px;
+    border-right:1px solid #eee;
+}
+
+.stat:last-child{
+    border-right:0;
+}
+
+.stat strong{
+    display:block;
+    font-size:28px;
+    color:#0d7b68;
+}
+
+.stat span{
+    font-size:14px;
+    color:#667;
+}
+
+/* SECTION */
+section{
+    padding:80px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-title small{
+    color:#0d8c75;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.section-title h2{
+    font-size:36px;
+    color:#173b5d;
+    margin-top:6px;
+}
+
+.section-title p{
+    max-width:650px;
+    margin:10px auto 0;
+    color:#687586;
+}
+
+/* ABOUT */
+.about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.about-img img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+
+.about-text h2{
+    font-size:35px;
+    color:#173b5d;
+    margin-bottom:15px;
+}
+
+.about-text p{
+    color:#5e6b7a;
+    margin-bottom:15px;
+}
+
+.points{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:20px;
+}
+
+.point{
+    background:#eef8f5;
+    padding:13px;
+    border-radius:9px;
+    color:#174f46;
+    font-weight:600;
+}
+
+/* FEATURES */
+.features{
+    background:#eef5f8;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card{
+    background:#fff;
+    padding:28px;
+    border-radius:15px;
+    box-shadow:0 7px 25px rgba(20,50,70,.07);
+}
+
+.icon{
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+.card h3{
+    color:#173b5d;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#687586;
+}
+
+/* ADMISSION */
+.admission{
+    background:
+    linear-gradient(120deg,#0b304d,#075f55);
+    color:white;
+}
+
+.admission-box{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:35px;
+    align-items:center;
+}
+
+.admission h2{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.admission p{
+    color:#d9eeee;
+}
+
+.admission img{
+    width:100%;
+    border-radius:15px;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+/* GALLERY */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.gallery img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:.25s;
+}
+
+.gallery img:hover{
+    transform:scale(1.025);
+}
+
+/* ACHIEVEMENT */
+.achievement{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
+    align-items:center;
+}
+
+.achievement img{
+    width:100%;
+    border-radius:15px;
+}
+
+/* CONTACT */
+.contact{
+    background:#eef5f8;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.contact-card{
+    background:white;
+    padding:28px;
+    border-radius:14px;
+    text-align:center;
+}
+
+.contact-card .icon{
+    font-size:30px;
+}
+
+.contact-card h3{
+    color:#173b5d;
+}
+
+.contact-card p{
+    color:#687586;
+}
+
+/* FOOTER */
+footer{
+    background:#0b1e31;
+    color:#d8e2ea;
+    padding:45px 0 20px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:35px;
+}
+
+footer h3{
+    color:#fff;
+    margin-bottom:12px;
+}
+
+footer p{
+    color:#b7c5d0;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.12);
+    margin-top:30px;
+    padding-top:18px;
+    text-align:center;
+    font-size:13px;
+    color:#9fb0bd;
+}
+
+/* FLOATING CALL */
+.call{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#0d9b82;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
+    z-index:2000;
+}
+
+/* MOBILE */
+@media(max-width:850px){
+
+    .topbar .container{
+        justify-content:center;
+        text-align:center;
     }
+
+    .nav{
+        padding:10px 0;
+        flex-direction:column;
+    }
+
+    nav{
+        justify-content:center;
+        gap:10px 15px;
+        padding-bottom:8px;
+    }
+
+    nav a{
+        font-size:13px;
+    }
+
+    .hero{
+        min-height:530px;
+    }
+
+    .hero-content{
+        padding:50px 0;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        margin-top:-25px;
+    }
+
+    .stat{
+        border-bottom:1px solid #eee;
+    }
+
+    .about,
+    .achievement,
+    .admission-box{
+        grid-template-columns:1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .gallery img{
+        height:170px;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    section{
+        padding:60px 0;
+    }
+
+    .section-title h2{
+        font-size:29px;
+    }
+
+    .about-img img{
+        height:300px;
+    }
+
+    .points{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+
+<!-- Google / Search Engine Structured Data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"EducationalOrganization",
+  "name":"Dishari Academy",
+  "alternateName":"দিশারী একাডেমী",
+  "url":"https://islamfaruk862-sys.github.io/",
+  "logo":"https://islamfaruk862-sys.github.io/logo.jpg",
+  "image":"https://islamfaruk862-sys.github.io/school-signboard.jpg",
+  "description":"দিশারী একাডেমী, Gurail Hatkhola, Tapan, Dakshin Dinajpur-এর একটি আবাসিক শিক্ষা প্রতিষ্ঠান।",
+  "foundingDate":"2020",
+  "telephone":"+91-9609707645",
+  "address":{
+    "@type":"PostalAddress",
+    "addressLocality":"Tapan",
+    "addressRegion":"West Bengal",
+    "addressCountry":"IN"
   }
-  </script>
-
-
-  <!-- Website CSS -->
-
-  <link rel="stylesheet"
-        href="style.css">
+}
+</script>
 
 </head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="container">
+        <div>🎓 দিশারী একাডেমী — শিক্ষার আলোয় আগামীর পথচলা</div>
+        <div>📞 9609707645 &nbsp; | &nbsp; 8167038811</div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="container nav">
+
+        <a href="#" class="brand">
+            <img src="logo.jpg" alt="Dishari Academy Logo">
+            <div class="brand-text">
+                <strong>দিশারী একাডেমী</strong>
+                <span>Dishari Academy</span>
+            </div>
+        </a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Facilities</a>
+            <a href="#admission">Admission</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+            <a href="admin.html" class="admission-btn">Admin Login</a>
+        </nav>
+
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-content">
+
+            <span class="badge">🏫 Established 2020 • Residential Education</span>
+
+            <h1>
+                শিক্ষার আলোয়<br>
+                <span>আগামীর পথচলা</span>
+            </h1>
+
+            <p>
+                দিশারী একাডেমী একটি আদর্শ উন্নতমানের আবাসিক শিক্ষা প্রতিষ্ঠান।
+                শিক্ষার্থীদের জ্ঞান, শৃঙ্খলা, মূল্যবোধ ও আত্মবিশ্বাসের সঙ্গে
+                ভবিষ্যতের জন্য প্রস্তুত করাই আমাদের লক্ষ্য।
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#admission" class="btn btn-primary">
+                    📝 2027 Admission
+                </a>
+
+                <a href="#about" class="btn btn-light">
+                    আমাদের সম্পর্কে
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+    <div class="stats">
+
+        <div class="stat">
+            <strong>2020</strong>
+            <span>প্রতিষ্ঠিত</span>
+        </div>
+
+        <div class="stat">
+            <strong>Nursery–IX</strong>
+            <span>শ্রেণি</span>
+        </div>
+
+        <div class="stat">
+            <strong>Residential</strong>
+            <span>আবাসিক শিক্ষা</span>
+        </div>
+
+        <div class="stat">
+            <strong>Gurail</strong>
+            <span>Tapan, Dakshin Dinajpur</span>
+        </div>
+
+    </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="container">
+
+        <div class="section-title">
+            <small>About Our School</small>
+            <h2>দিশারী একাডেমী সম্পর্কে</h2>
+            <p>একটি সুন্দর শিক্ষার পরিবেশে শিক্ষার্থীদের ভবিষ্যৎ গড়ে তোলার অঙ্গীকার।</p>
+        </div>
+
+        <div class="about">
+
+            <div class="about-img">
+                <img src="school-signboard.jpg"
+                     alt="দিশারী একাডেমী স্কুল">
+            </div>
+
+            <div class="about-text">
+
+                <h2>শিক্ষা হোক ভবিষ্যতের পথপ্রদর্শক</h2>
+
+                <p>
+                    দিশারী একাডেমী 2020 সালে প্রতিষ্ঠিত একটি আবাসিক শিক্ষা প্রতিষ্ঠান।
+                    শিক্ষার্থীদের পড়াশোনার পাশাপাশি শৃঙ্খলা, নৈতিকতা, আত্মবিশ্বাস
+                    এবং সৃজনশীলতার বিকাশে গুরুত্ব দেওয়া হয়।
+                </p>
+
+                <p>
+                    আমাদের লক্ষ্য হলো প্রতিটি শিক্ষার্থীকে তার নিজস্ব প্রতিভা
+                    বিকাশের সুযোগ দেওয়া এবং ভবিষ্যতের জন্য প্রস্তুত করা।
+                </p>
+
+                <div class="points">
+                    <div class="point">✓ আবাসিক শিক্ষা</div>
+                    <div class="point">✓ সুন্দর পরিবেশ</div>
+                    <div class="point">✓ নিয়মিত কার্যক্রম</div>
+                    <div class="point">✓ শিক্ষার্থীবান্ধব পরিবেশ</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="features" id="features">
+
+    <div class="container">
+
+        <div class="section-title">
+            <small>Why Dishari Academy</small>
+            <h2>আমাদের বৈশিষ্ট্য</h2>
+            <p>শিক্ষার্থীদের সর্বাঙ্গীণ বিকাশের জন্য বিভিন্ন শিক্ষামূলক ও সহশিক্ষামূলক কার্যক্রম।</p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="icon">📚</div>
+                <h3>মানসম্মত শিক্ষা</h3>
+                <p>
+                    শিক্ষার্থীদের মৌলিক জ্ঞান ও শিক্ষাগত দক্ষতা বৃদ্ধির উপর গুরুত্ব।
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🏠</div>
+                <h3>আবাসিক ব্যবস্থা</h3>
+                <p>
+                    আবাসিক শিক্ষার্থীদের জন্য নিয়মিত ও সুশৃঙ্খল শিক্ষার পরিবেশ।
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">⚽</div>
+                <h3>খেলাধুলা ও কার্যক্রম</h3>
+                <p>
+                    পড়াশোনার পাশাপাশি খেলাধুলা ও বিভিন্ন সহশিক্ষামূলক কার্যক্রম।
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎯</div>
+                <h3>শৃঙ্খলা</h3>
+                <p>
+                    নিয়মিত জীবনযাপন ও দায়িত্ববোধের মাধ্যমে শিক্ষার্থীদের গড়ে তোলা।
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🌱</div>
+                <h3>ব্যক্তিত্ব বিকাশ</h3>
+                <p>
+                    আত্মবিশ্বাস, নেতৃত্ব এবং সৃজনশীলতা বিকাশের সুযোগ।
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🤝</div>
+                <h3>সহযোগিতামূলক পরিবেশ</h3>
+                <p>
+                    শিক্ষার্থী, শিক্ষক ও অভিভাবকদের মধ্যে সহযোগিতার পরিবেশ।
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ADMISSION -->
+<section class="admission" id="admission">
+
+    <div class="container">
+
+        <div class="admission-box">
+
+            <div>
+                <span class="badge">ADMISSION 2027</span>
+
+                <h2>2027 শিক্ষাবর্ষে ভর্তি চলছে</h2>
+
+                <p>
+                    Nursery থেকে Class IX পর্যন্ত শিক্ষার্থীদের জন্য
+                    2027 শিক্ষাবর্ষে ভর্তি সংক্রান্ত তথ্যের জন্য
+                    বিদ্যালয়ের সঙ্গে যোগাযোগ করুন।
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="tel:+919609707645"
+                       class="btn btn-primary">
+                        📞 Call Now
+                    </a>
+
+                    <a href="tel:+918167038811"
+                       class="btn btn-light">
+                        ☎️ Contact Office
+                    </a>
+
+                </div>
+            </div>
+
+            <div>
+                <img src="admission-2027.jpg"
+                     alt="Dishari Academy Admission 2027">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+
+    <div class="container">
+
+        <div class="section-title">
+            <small>School Gallery</small>
+            <h2>আমাদের কিছু মুহূর্ত</h2>
+            <p>দিশারী একাডেমীর বিভিন্ন কার্যক্রম ও শিক্ষার্থীদের কিছু বাস্তব ছবি।</p>
+        </div>
+
+        <div class="gallery">
+
+            <img src="school-activity.jpg"
+                 alt="School Activity">
+
+            <img src="students-group.jpg"
+                 alt="Students">
+
+            <img src="playground.jpg"
+                 alt="School Playground">
+
+            <img src="achievement.jpg"
+                 alt="School Achievement">
+
+            <img src="achievement-event.jpg"
+                 alt="Achievement Event">
+
+            <img src="students-playground.jpg"
+                 alt="Students Playground">
+
+            <img src="teacher-student-group.jpg"
+                 alt="Teacher and Students">
+
+            <img src="school-signboard.jpg"
+                 alt="Dishari Academy">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ACHIEVEMENT -->
+<section>
+
+    <div class="container">
+
+        <div class="achievement">
+
+            <div>
+                <span class="badge"
+                      style="background:#e8f5f2;color:#087864;border:0;">
+                    SCHOOL ACTIVITIES
+                </span>
+
+                <h2 style="font-size:36px;color:#173b5d;margin:15px 0;">
+                    শিক্ষার্থীদের সাফল্য ও কার্যক্রম
+                </h2>
+
+                <p style="color:#687586;">
+                    পড়াশোনার পাশাপাশি বিভিন্ন অনুষ্ঠান, সাংস্কৃতিক কার্যক্রম,
+                    খেলাধুলা এবং শিক্ষামূলক কর্মকাণ্ডে শিক্ষার্থীদের অংশগ্রহণের
+                    সুযোগ রয়েছে।
+                </p>
+            </div>
+
+            <img src="achievement-event.jpg"
+                 alt="Dishari Academy Achievement">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+
+    <div class="container">
+
+        <div class="section-title">
+            <small>Contact Us</small>
+            <h2>যোগাযোগ করুন</h2>
+            <p>ভর্তি ও বিদ্যালয় সংক্রান্ত তথ্যের জন্য আমাদের সঙ্গে যোগাযোগ করুন।</p>
+        </div>
+
+        <div class="contact-grid">
+
+            <div class="contact-card">
+                <div class="icon">📍</div>
+                <h3>ঠিকানা</h3>
+                <p>
+                    Gurail Hatkhola,<br>
+                    Tapan, Dakshin Dinajpur,<br>
+                    West Bengal, India
+                </p>
+            </div>
+
+            <div class="contact-card">
+                <div class="icon">📞</div>
+                <h3>ফোন</h3>
+                <p>
+                    <a href="tel:+919609707645">
+                        9609707645
+                    </a>
+                    <br>
+                    <a href="tel:+918167038811">
+                        8167038811
+                    </a>
+                </p>
+            </div>
+
+            <div class="contact-card">
+                <div class="icon">🏫</div>
+                <h3>প্রতিষ্ঠান</h3>
+                <p>
+                    দিশারী একাডেমী<br>
+                    প্রতিষ্ঠিত — 2020<br>
+                    আবাসিক শিক্ষা প্রতিষ্ঠান
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+                <h3>দিশারী একাডেমী</h3>
+                <p>
+                    শিক্ষার আলোয় আগামীর পথচলা।
+                    শিক্ষার্থীদের জ্ঞান, শৃঙ্খলা ও মূল্যবোধের
+                    সঙ্গে ভবিষ্যতের জন্য প্রস্তুত করার অঙ্গীকার।
+                </p>
+            </div>
+
+            <div>
+                <h3>Quick Links</h3>
+                <p><a href="#about">About School</a></p>
+                <p><a href="#admission">Admission 2027</a></p>
+                <p><a href="#gallery">Gallery</a></p>
+                <p><a href="admin.html">Admin Login</a></p>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+                <p>📍 Gurail Hatkhola, Tapan</p>
+                <p>📞 9609707645</p>
+                <p>📞 8167038811</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Dishari Academy. All Rights Reserved.
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- FLOATING CALL BUTTON -->
+<a class="call"
+   href="tel:+919609707645"
+   aria-label="Call Dishari Academy">
+    ☎
+</a>
+
+</body>
+</html>
